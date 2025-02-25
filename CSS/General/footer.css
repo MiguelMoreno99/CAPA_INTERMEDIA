@@ -1,6 +1,6 @@
 /* Footer */
 .main-footer {
-    background: linear-gradient(to top, rgb(0, 0, 0), rgba(0, 0, 0, 0.699));
+    background-color: #04111ecc;
     color: white;
     text-align: center;
     padding: 10px;
@@ -8,7 +8,6 @@
 }
 
 .footer-opciones ul {
-    list-style-type: none;
     margin-left: 10%;
     margin-right: 10%;
     margin-top: 10px;
@@ -20,18 +19,8 @@
     margin: 20px;
 }
 
-.footer-opciones ul li a {
-    color: white;
-    text-decoration: none;
-    font-size: 16px;
-}
-
 .footer-opciones .footer-final {
-    font-size: 20px;
+    font-size: 15px;
     font-style: italic;
     margin-top: 20px;
-}
-
-.footer-opciones ul li a:hover {
-    text-decoration: underline;
 }

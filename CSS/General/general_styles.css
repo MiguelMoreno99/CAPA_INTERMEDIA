@@ -6,8 +6,8 @@
 }
 
 body {
-    background-image: url('../../imagenes/Fondos.webp');
-    background-color: #f0f0f0;
+    background-image: url('../../imagenes/Fondo_Pagina.webp');
+    background-color: #000000;
     font-family: 'Segoe UI', sans-serif;
     display: flex;
     flex-direction: column;

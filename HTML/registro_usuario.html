@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Registro de Usuario</title>
     <link rel="stylesheet" href="../CSS/GENERAL/general_styles.css" />
-    <link rel="stylesheet" href="../CSS/registro.css" />
+    <link rel="stylesheet" href="../CSS/registro_usuario.css" />
     <link rel="stylesheet" href="../CSS/GENERAL/header.css" />
     <link rel="stylesheet" href="../CSS/GENERAL/footer.css" />
   </head>
@@ -60,6 +60,24 @@
               name="confirm_contrasenia"
               autocomplete="new-password"
             />
+            <div class="error-message"></div>
+          </div>
+          <div class="form-grupo">
+            <div class="radio-grupo" id="radio-grupo">
+              <label>
+                <input type="radio" id="adminRadioInput" name="rol" value="0" />
+                Usuario Administrador
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  id="usuarioRadioInput"
+                  name="rol"
+                  value="1"
+                />
+                Usuario Normal
+              </label>
+            </div>
             <div class="error-message"></div>
           </div>
           <div class="form-grupo">

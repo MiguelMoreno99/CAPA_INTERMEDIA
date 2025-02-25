@@ -7,6 +7,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const passwordInput = document.getElementById('password');
     const confirmPasswordInput = document.getElementById('confirm_password');
     const fotoInput = document.getElementById('foto');
+    const radiosInput = document.getElementsByName('rol');
+    const radioGrupo = document.getElementById('radio-grupo');
     const profilePreview = document.getElementById('profilePreview');
     const registerBtn = document.getElementById('registerBtn');
 
@@ -57,6 +59,11 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     fotoInput.addEventListener('change', function () {
         validarImagen();
+    });
+    radiosInput.forEach(radio => {
+        radio.addEventListener("change", function () {
+            validarRadio();
+        });
     });
 
     //Funciones para validar los campos
@@ -143,8 +150,24 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         return isValid;
     }
+    function validarRadio() {
+        let isValid = false;
+
+        for (let i = 0; i < radiosInput.length; i++) {
+            if (radiosInput[i].checked) {
+                isValid = true;
+                clearError(radioGrupo);
+                break;
+            }
+        }
+        if (!isValid) {
+            showError(radioGrupo, 'Debes seleccionar una opcion.');
+            isValid = false;
+        }
+        return isValid;
+    }
     function validarFormulario() {
-        if (validarNombre() && validarApellidoPaterno() && validarApellidoMaterno() && validarCorreo() && ValidarContrasenia() && validarContraseniaIgual() && validarImagen()) {
+        if (validarNombre() && validarApellidoPaterno() && validarApellidoMaterno() && validarCorreo() && ValidarContrasenia() && validarContraseniaIgual() && validarRadio() && validarImagen()) {
             return true;
         } else {
             return false;
