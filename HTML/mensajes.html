@@ -24,11 +24,11 @@
         <ul class="chat-list">
           <li class="chat-item">
             Usuario 1
-            <label class="messageNotification">+1 mensaje</label>
+            <!-- <label class="messageNotification">+1 mensaje</label> -->
           </li>
           <li class="chat-item">
             Usuario 2
-            <label class="messageNotification">+2 mensajes</label>
+            <!-- <label class="messageNotification">+2 mensajes</label> -->
           </li>
           <li class="chat-item">
             Usuario 3
@@ -42,27 +42,14 @@
           <div class="user-info">
             <h3>Usuario 1</h3>
           </div>
-          <label>Cifrado de mensajes: </label>
+          <!-- <label>Cifrado de mensajes: </label>
           <button
             id="cifrado-btn"
             class="cifrado-btn"
             onclick="toggleCifrado()"
           >
             Desactivado
-          </button>
-
-          <!--Script temporal para el boton de cifrado-->
-          <script>
-            function toggleCifrado() {
-              var button = document.getElementById("cifrado-btn");
-              button.classList.toggle("active");
-              if (button.classList.contains("active")) {
-                button.textContent = "Activado";
-              } else {
-                button.textContent = "Desactivado";
-              }
-            }
-          </script>
+          </button> -->
         </div>
 
         <div class="chat-messages">
@@ -83,5 +70,6 @@
 
     <div id="footer-container"></div>
     <script src="../JS/templates.js"></script>
+    <script src="../JS/mensajes.js"></script>
   </body>
 </html>
