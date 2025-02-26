@@ -9,13 +9,6 @@
   margin: 20px;
 }
 
-/* Sección Crear Publicación */
-.create-post {
-  padding-right: 20px;
-  border-right: 2px solid white;
-  /* Separador visual */
-}
-
 /* Sección de Filtrar */
 .filter-section {
   display: flex;
@@ -28,6 +21,7 @@
 .filter-label {
   font-size: 14px;
   font-weight: bold;
+  color: white;
 }
 
 .feed-container {
@@ -45,6 +39,7 @@
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.596);
   margin-bottom: 20px;
+  color: white;
 }
 
 .post-header {
@@ -72,7 +67,6 @@
   position: relative;
   width: 100%;
   overflow: hidden;
-
   border-radius: 10px;
   margin: 10px 0;
 }
@@ -102,10 +96,10 @@
   top: 50%;
   transform: translateY(-50%);
   background-color: rgba(0, 0, 0, 0.5);
+  color: white;
   border: none;
   padding: 10px;
   cursor: pointer;
-  color: white;
   font-size: 18px;
   z-index: 10;
   border-radius: 50%;
@@ -159,4 +153,9 @@
   background: #04444c;
   padding: 8px;
   border-radius: 5px;
+}
+
+.buttons-edit-carousel,
+.edit-post-form {
+  display: none;
 }

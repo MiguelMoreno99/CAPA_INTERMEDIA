@@ -1,68 +1,60 @@
 /* Tarjeta del usuario */
 .Header-Container {
-    padding: 1em;
-    padding-inline: 5%;
-    display: flex;
-    justify-content: center;
+  padding: 1em;
+  padding-inline: 5%;
+  display: flex;
+  justify-content: center;
 }
 
 .divProfile {
-    background-color: #043c4cd7;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 30px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.774);
-    border-radius: 10px;
-    color: white;
+  background-color: #043c4cd7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.774);
+  border-radius: 10px;
+  color: white;
 }
 
 .divProfile img {
-    border-radius: 50%;
-    width: 100px;
-    height: 100px;
-    margin-left: 60px;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  margin-left: 60px;
 }
 
 .Info-Container {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Informacion del usuario */
 .divInfo {
-    background-color: #043c4cab;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.459);
-    width: 40em;
-    text-align: center;
-    font-weight: bold;
-    color: white;
-    font-size: 22px;
+  background-color: #043c4cab;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.459);
+  width: 40em;
+  text-align: center;
+  font-weight: bold;
+  color: white;
+  font-size: 22px;
 }
 
 #info_usuarioForm {
-    margin: 20px;
+  margin: 20px;
 }
 
 .form-grupo {
-    margin: 20px;
-}
-
-.divInfo input {
-    width: 100%;
-    padding: 0.7em;
-    margin: 0.5em 0;
-    border: 1px solid #043c4cab;
-    border-radius: 5px;
+  margin: 20px;
 }
 
 .divInfo img {
-    border-radius: 50%;
-    width: 100px;
-    height: 100px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.253);
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.253);
 }
