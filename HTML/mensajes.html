@@ -18,21 +18,21 @@
 
         <div class="search-container">
           <input type="text" id="Usuario" placeholder="Buscar usuario..." />
-          <button class="btn-search">Buscar</button>
+          <button class="btn btn-search">Buscar</button>
         </div>
 
         <ul class="chat-list">
           <li class="chat-item">
-            Usuario 1 <label class="recompensasUsuario">4⭐</label>
+            Usuario 1
             <label class="messageNotification">+1 mensaje</label>
           </li>
           <li class="chat-item">
-            Usuario 2 <label class="recompensasUsuario">1⭐</label>
+            Usuario 2
             <label class="messageNotification">+2 mensajes</label>
           </li>
           <li class="chat-item">
-            Usuario 3 <label class="recompensasUsuario">0⭐</label
-            ><label class="messageNotification"></label>
+            Usuario 3
+            <label class="messageNotification"></label>
           </li>
         </ul>
       </div>
@@ -41,7 +41,6 @@
         <div class="chat-header">
           <div class="user-info">
             <h3>Usuario 1</h3>
-            <label class="estadoUsuario">Activo 🟢</label>
           </div>
           <label>Cifrado de mensajes: </label>
           <button
@@ -64,10 +63,6 @@
               }
             }
           </script>
-
-          <button id="videollamada-btn">
-            <img src="../Imagenes/logovideollamada.png" alt="Icono" />
-          </button>
         </div>
 
         <div class="chat-messages">
@@ -76,21 +71,12 @@
         </div>
 
         <div class="message-input">
-          <button id="imagenes-btn">
-            <img src="../Imagenes/clip.png" alt="Icono" />
-          </button>
-          <button id="audio-btn">
-            <img src="../Imagenes/logoaudio.png" alt="Icono" />
-          </button>
-          <button id="location-btn">
-            <img src="../Imagenes/ubicacion.png" alt="Icono" />
-          </button>
           <input
             type="text"
             placeholder="Escribe un mensaje..."
             id="message-box"
           />
-          <button id="send-btn">Enviar</button>
+          <button class="btn send-btn" id="btn send-btn">Enviar</button>
         </div>
       </div>
     </div>
