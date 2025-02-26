@@ -15,8 +15,41 @@ body {
     margin: 0;
     background-size: cover;
     background-repeat: no-repeat;
+    justify-content: center;
 }
 
-main {
-    flex: 1;
+/* Estilos para todos los botones */
+button.btn {
+    padding: 10px;
+    background-color: #041C24;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* Estilos para todos los botones */
+button.btn:hover {
+    background-color: #04444C;
+}
+
+/* Estilos para el campo inválido */
+.invalid {
+    border: 2px solid red !important;
+    outline: none;
+}
+
+/* Mensaje de error */
+.error-message {
+    color: red;
+    font-size: 0.8rem;
+    margin-top: 4px;
+    display: none;
+}
+
+a,
+a:visited {
+    color: inherit;
+    text-decoration: none;
 }

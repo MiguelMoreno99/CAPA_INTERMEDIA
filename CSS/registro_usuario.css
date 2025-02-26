@@ -26,12 +26,6 @@ h2 {
     color: white;
 }
 
-a,
-a:visited {
-    color: inherit;
-    text-decoration: none;
-}
-
 .form-grupo label {
     display: block;
     margin-bottom: 5px;
@@ -47,20 +41,6 @@ a:visited {
     border-radius: 5px;
 }
 
-/* Estilos para el campo inválido */
-.invalid {
-    border: 2px solid red !important;
-    outline: none;
-}
-
-/* Mensaje de error */
-.error-message {
-    color: red;
-    font-size: 0.8rem;
-    margin-top: 4px;
-    display: none;
-}
-
 .radio-grupo {
     display: flex;
     justify-content: center;
@@ -69,20 +49,8 @@ a:visited {
 }
 
 .form-grupo .profilePreview {
-    width: 120px;
-}
-
-button.btn {
-    width: 100%;
-    padding: 10px;
-    background-color: #041C24;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-button.btn:hover {
-    background-color: #04444C;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.253);
 }

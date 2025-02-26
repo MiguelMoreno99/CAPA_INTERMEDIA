@@ -1,112 +1,68 @@
+/* Tarjeta del usuario */
 .Header-Container {
     padding: 1em;
     padding-inline: 5%;
     display: flex;
-    justify-content: start;
-    background-color: rgba(0, 0, 0, 0);
-}
-
-#footer-container {
-    margin-top: auto;
-}
-
-/* Estilos para el campo inválido */
-.invalid {
-    border: 2px solid red !important;
-    outline: none;
-}
-
-/* Mensaje de error */
-.error-message {
-    color: red;
-    font-size: 0.8rem;
-    margin-top: 4px;
-    display: none;
+    justify-content: center;
 }
 
 .divProfile {
-    background-color: rgb(255, 255, 255);
+    background-color: #043c4cd7;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px;
-    margin-inline: 10%;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.555);
-    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.774);
+    border-radius: 10px;
+    color: white;
 }
 
 .divProfile img {
     border-radius: 50%;
     width: 100px;
     height: 100px;
-    margin-left: 10px;
+    margin-left: 60px;
 }
 
 .Info-Container {
+    flex: 1;
     display: flex;
-    padding: 1em;
-    background-color: rgba(220, 235, 252, 0.938);
-}
-
-.divInfo {
-    display: block;
-    width: 30%;
     justify-content: center;
-    margin-left: 14%;
+    align-items: center;
 }
 
-.divInfo label {
+/* Informacion del usuario */
+.divInfo {
+    background-color: #043c4cab;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.459);
+    width: 40em;
+    text-align: center;
     font-weight: bold;
+    color: white;
+    font-size: 22px;
+}
+
+#info_usuarioForm {
+    margin: 20px;
+}
+
+.form-grupo {
+    margin: 20px;
 }
 
 .divInfo input {
     width: 100%;
     padding: 0.7em;
     margin: 0.5em 0;
-    box-sizing: border-box;
-    border-radius: 10px;
-    border: 0;
-    background-color: rgb(255, 255, 255);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.253);
-}
-
-.divInfo button {
-    color: white;
-    background-color: black;
-    border: none;
-    margin-top: 10px;
-    padding: 10px;
-    border-radius: 10px;
-    font-size: 18px;
-    box-shadow: 0 0 10px rgb(0, 0, 0);
+    border: 1px solid #043c4cab;
+    border-radius: 5px;
 }
 
 .divInfo img {
     border-radius: 50%;
     width: 100px;
     height: 100px;
-    margin-left: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.253);
-}
-
-.divInfo button:hover {
-    background-color: rgb(58, 72, 83);
-}
-
-.divLogros-Container {
-    justify-items: center;
-    padding: 2em;
-    width: 50%;
-}
-
-.divLogros {
-    display: block;
-    background-color: rgb(236, 236, 236);
-    width: 400px;
-    height: fit-content;
-    border-radius: 15px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.322);
-    justify-items: center;
-    align-content: center;
-    padding: 10px;
 }
