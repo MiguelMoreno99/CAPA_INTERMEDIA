@@ -1,38 +1,38 @@
 /* Header */
 .main-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #04111ecc;
-    box-shadow: 0 0 10px rgb(0, 0, 0);
-    padding: 10px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #04111ecc;
+  box-shadow: 0 0 10px rgb(0, 0, 0);
+  padding: 10px 10px;
 }
 
 .main-header .logo img {
-    width: 8em;
-    border-radius: 10px;
-    margin: 5px;
+  width: 8em;
+  border-radius: 10px;
+  margin: 5px;
 }
 
 .nav-opciones ul {
-    display: flex;
-    gap: 10px;
+  display: flex;
+  gap: 10px;
 }
 
 .nav-opciones ul li {
-    display: inline;
+  display: inline;
 }
 
 .nav-opciones ul li a {
-    color: white;
-    text-decoration: none;
-    font-size: 15px;
-    font-weight: bold;
-    padding: 10px;
+  color: white;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 10px;
 }
 
 .nav-opciones ul li a:hover {
-    background-color: #010a0e;
-    border-radius: 5px;
-    color: #087280;
+  background-color: #010a0e;
+  border-radius: 5px;
+  color: #087280;
 }

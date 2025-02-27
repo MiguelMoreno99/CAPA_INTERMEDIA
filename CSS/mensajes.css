@@ -1,143 +1,143 @@
 .dm-container {
-    display: flex;
-    width: 90%;
-    max-width: 1200px;
-    height: 75vh;
-    background-color: #032f35;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    margin: 20px auto;
-    flex-grow: 1;
+  display: flex;
+  width: 90%;
+  max-width: 1200px;
+  height: 75vh;
+  background-color: #032f35;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin: 20px auto;
+  flex-grow: 1;
 }
 
 .sidebar {
-    width: 30%;
-    background-color: #032f35;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
+  width: 30%;
+  background-color: #032f35;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 .chat-list {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    overflow-y: auto;
-    flex-grow: 1;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  overflow-y: auto;
+  flex-grow: 1;
 }
 
 .chat-item {
-    padding: 10px;
-    margin-bottom: 10px;
-    background-color: #041C24;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #041c24;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
 }
 
 .chat-item:hover {
-    background-color: #04444C;
+  background-color: #04444c;
 }
 
 .chat-window {
-    width: 70%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .chat-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 15px;
-    background-color: #02171a;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+  background-color: #02171a;
 }
 
 .chat-header .user-info {
-    flex-grow: 0.9;
+  flex-grow: 0.9;
 }
 
 .chat-messages {
-    padding: 20px;
-    background-color: #04444C;
-    overflow-y: auto;
-    flex-grow: 1;
+  padding: 20px;
+  background-color: #04444c;
+  overflow-y: auto;
+  flex-grow: 1;
 }
 
 .message {
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    max-width: 60%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  max-width: 60%;
 }
 
 .received {
-    background-color: #041C24;
-    align-self: flex-start;
+  background-color: #041c24;
+  align-self: flex-start;
 }
 
 .sent {
-    background-color: #04323C;
-    align-self: flex-end;
+  background-color: #04323c;
+  align-self: flex-end;
 }
 
 .message-input {
-    display: flex;
-    padding: 15px;
+  display: flex;
+  padding: 15px;
 }
 
 #message-box {
-    flex-grow: 1;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    font-size: 14px;
-    margin-right: 10px;
+  flex-grow: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  margin-right: 10px;
 }
 
 .search-container {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 #Usuario {
-    flex-grow: 1;
-    padding: 10px;
-    border: none;
-    border-radius: 5px 0 0 5px;
-    font-size: 14px;
+  flex-grow: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 5px 0 0 5px;
+  font-size: 14px;
 }
 
 .message-date {
-    font-size: 0.8em;
-    margin-left: 10px;
+  font-size: 0.8em;
+  margin-left: 10px;
 }
 
 /* Espacio entre el nombre y el botón */
 .user-info {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .messageNotification {
-    font-style: italic;
-    font-size: 1em;
-    margin-left: 20px;
+  font-style: italic;
+  font-size: 1em;
+  margin-left: 20px;
 }
 
 .cifrado-btn {
-    background-color: #ff0000;
-    border: none;
-    border-radius: 5px;
-    padding: 8px;
-    cursor: pointer;
-    margin: 0;
+  background-color: #ff0000;
+  border: none;
+  border-radius: 5px;
+  padding: 8px;
+  cursor: pointer;
+  margin: 0;
 }
 
 .cifrado-btn.active {
-    background-color: #73fa92;
+  background-color: #73fa92;
 }
