@@ -1,5 +1,5 @@
 // Función para cargar el header
-fetch('../HTML/TEMPLATES/header.html')
+fetch('../../HTML/TEMPLATES/header.html')
     .then(response => response.text())
     .then(data => {
         const template = document.createElement('template');
@@ -19,7 +19,7 @@ fetch('../HTML/TEMPLATES/header.html')
     .catch(err => console.error('Error cargando el header:', err));
 
 // Función para cargar el footer
-fetch('../HTML/TEMPLATES/footer.html')
+fetch('../../HTML/TEMPLATES/footer.html')
     .then(response => response.text())
     .then(data => {
         const template = document.createElement('template');
