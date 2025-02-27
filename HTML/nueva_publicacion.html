@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nueva Publicación</title>
+    <title>Mis Publicaciones</title>
     <link rel="stylesheet" href="../CSS/GENERAL/general_styles.css" />
     <link rel="stylesheet" href="../CSS/nueva_publicacion.css" />
     <link rel="stylesheet" href="../CSS/GENERAL/header.css" />
@@ -28,22 +28,20 @@
               type="text"
               id="edit-title"
               name="edit-title"
-              placeholder="Mi nuevo viaje"
+              value="Mi nuevo viaje"
             />
           </h2>
 
           <p class="post-description">
             Descripción:
-            <textarea
-              id="edit-description"
-              name="edit-description"
-              placeholder="Compartiendo algunas fotos de mi viaje reciente. ¡Espero les guste!"
-            ></textarea>
+            <textarea id="edit-description" name="edit-description">
+Compartiendo algunas fotos de mi viaje reciente. ¡Espero les guste!</textarea
+            >
           </p>
 
           <!-- Carrusel de imágenes/videos -->
           <div class="carousel">
-            <label for="edit-images">Subir Contenido Multimedia:</label>
+            <label for="edit-images">Subir nuevas fotos:</label>
             <input
               type="file"
               id="edit-media"
@@ -56,15 +54,17 @@
               <!-- Aquí se mostrarán las imágenes seleccionadas -->
             </div>
             <div class="buttons-edit-carousel">
-              <button class="prev" onclick="changeSlide(-1, 1)">
+              <button class="prev" onclick="changeSlide(-1, 0)">
                 &#10094;
               </button>
-              <button class="next" onclick="changeSlide(1, 1)">&#10095;</button>
+              <button class="next" onclick="changeSlide(1, 0)">&#10095;</button>
             </div>
           </div>
           <div class="post-footer">
-            <button class="btn createPost-btn">Crear Post</button>
-            <button class="btn cancel-btn">Cancelar</button>
+            <button class="btn crearPost-btn">Crear Post</button>
+            <button class="btn cancel-btn" onclick="window.history.back();">
+              Cancelar
+            </button>
           </div>
         </div>
       </div>
