@@ -159,7 +159,7 @@ document.addEventListener("DOMContentLoaded", function () {
     event.preventDefault();
     if (validarFormulario()) {
       alert("Se guardó la informacion!");
-      window.location.href = "usuario.html"; // Cambia "index.html" por tu página principal
+      window.location.href = "usuario"; // Cambia "index.html" por tu página principal
     } else {
       alert("Por favor, corrige los errores antes de enviar.");
       return false; // Evita el envío si hay errores

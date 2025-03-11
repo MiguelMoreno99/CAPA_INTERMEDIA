@@ -199,7 +199,7 @@ document.addEventListener("DOMContentLoaded", function () {
     event.preventDefault();
     if (validarFormulario()) {
       alert("Registro exitoso!");
-      window.location.href = "inicio_sesion.html"; // Cambia "index.html" por tu página principal
+      window.location.href = "inicio_sesion"; // Cambia "index.html" por tu página principal
     } else {
       alert("Por favor, corrige los errores antes de enviar.");
       return false; // Evita el envío si hay errores
