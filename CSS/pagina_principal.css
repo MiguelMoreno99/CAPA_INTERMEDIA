@@ -2,11 +2,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #01090c;
+  background-color: #01090cb2;
   padding: 15px;
-  border-radius: 10px;
   box-shadow: 0px 4px 10px rgb(0, 0, 0);
-  margin: 20px;
+  margin: 20px 0;
 }
 
 /* Sección Crear Publicación */
@@ -21,13 +20,17 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-left: 10px;
+  margin: 0px 10px;
+  min-width: 80%;
 }
 
-/* Texto "Filtrar por fecha de publicación" */
 .filter-label {
-  font-size: 14px;
-  font-weight: bold;
+  min-width: 20%;
+  text-align: right;
+}
+
+.filter {
+  min-width: 10%;
 }
 
 .info-container {

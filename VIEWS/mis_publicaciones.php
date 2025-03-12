@@ -21,6 +21,16 @@
             <label for="filter-date" class="filter-label">Filtrar por fecha de publicación:</label>
             <input type="date" id="filter-date" class="filter-date" />
 
+            <!-- Filtrar por tema -->
+            <label for="filter-topic" class="filter-label">Filtrar por tema:</label>
+            <select id="filter-topic" class="filter-topic">
+                <option value="">Seleccionar tema</option>
+                <option value="viajes">Viajes</option>
+                <option value="tecnologia">Tecnología</option>
+                <option value="cultura">Cultura</option>
+                <option value="deportes">Deportes</option>
+            </select>
+
             <!-- Botón de Filtrar -->
             <button class="btn filter">Filtrar</button>
         </div>

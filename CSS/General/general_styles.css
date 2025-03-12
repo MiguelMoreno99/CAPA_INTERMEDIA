@@ -49,7 +49,8 @@ a:visited {
   text-decoration: none;
 }
 
-input {
+input,
+select {
   width: 100%;
   padding: 0.7em;
   margin: 0.5em 0;
