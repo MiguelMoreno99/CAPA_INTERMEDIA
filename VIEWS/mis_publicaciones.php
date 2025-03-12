@@ -45,6 +45,10 @@
                         <h3>Juan Pérez</h3>
                         <span>Publicado el 25/02/2025</span>
                     </div>
+                    <div class="post-topic">
+                        <h5>Tema:</h5>
+                        <span>Deportes</span>
+                    </div>
                 </div>
                 <h2 class="post-title">Mi nuevo viaje</h2>
                 <p class="post-description">
@@ -99,12 +103,21 @@
                         Título:
                         <input type="text" id="edit-title" name="edit-title" value="Mi nuevo viaje" />
                     </h2>
-
+                    <h4 class="post-title">
+                        Categoría:
+                        <select id="filter-topic" class="filter-topic">
+                            <option value="">Seleccionar Categoría</option>
+                            <option value="viajes">Viajes</option>
+                            <option value="tecnologia">Tecnología</option>
+                            <option value="cultura">Cultura</option>
+                            <option value="deportes">Deportes</option>
+                        </select>
+                    </h4>
                     <p class="post-description">
                         Descripción:
                         <textarea id="edit-description" name="edit-description">
-                    Compartiendo algunas fotos de mi viaje reciente. ¡Espero les guste!
-                    </textarea>
+                            Compartiendo algunas fotos de mi viaje reciente. ¡Espero les guste!
+                        </textarea>
                     </p>
 
                     <!-- Carrusel de imágenes/videos -->

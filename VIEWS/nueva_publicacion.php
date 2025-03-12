@@ -26,7 +26,16 @@
                         Título:
                         <input type="text" id="edit-title" name="edit-title" value="Mi nuevo viaje" />
                     </h2>
-
+                    <h4 class="post-title">
+                        Categoría:
+                        <select id="filter-topic" class="filter-topic">
+                            <option value="">Seleccionar Categoría</option>
+                            <option value="viajes">Viajes</option>
+                            <option value="tecnologia">Tecnología</option>
+                            <option value="cultura">Cultura</option>
+                            <option value="deportes">Deportes</option>
+                        </select>
+                    </h4>
                     <p class="post-description">
                         Descripción:
                         <textarea id="edit-description" name="edit-description">

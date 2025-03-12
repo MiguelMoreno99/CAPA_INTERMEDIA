@@ -56,6 +56,10 @@
                         <h3>Juan Pérez</h3>
                         <span>Publicado el 25/02/2025</span>
                     </div>
+                    <div class="post-topic">
+                        <h5>Tema:</h5>
+                        <span>Viajes</span>
+                    </div>
                 </div>
                 <h2 class="post-title">Mi nuevo viaje</h2>
                 <p class="post-description">
@@ -101,6 +105,10 @@
                     <div>
                         <h3>Miguel Gonzalez</h3>
                         <span>Publicado el 05/01/2025</span>
+                    </div>
+                    <div class="post-topic">
+                        <h5>Tema:</h5>
+                        <span>Deportes</span>
                     </div>
                 </div>
                 <h2 class="post-title">Ganadores Sorteo</h2>
