@@ -1,10 +1,4 @@
 /* General Styles */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 body {
   background-image: url("../../IMG/Fondo_Pagina.webp");
   background-color: #000000;
@@ -70,7 +64,8 @@ textarea {
   padding: 10px;
   border: 1px solid #043c4cab;
   border-radius: 5px;
-  resize: vertical; /* Permite cambiar el tamaño verticalmente */
+  resize: vertical;
+  /* Permite cambiar el tamaño verticalmente */
 }
 
 h2 {
