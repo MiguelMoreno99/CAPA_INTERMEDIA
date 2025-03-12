@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mis Publicaciones</title>
+    <title>Nueva Publicación</title>
     <?php require 'PHP/cssStyles.php'; ?>
     <link rel="stylesheet" href="CSS/nueva_publicacion.css" />
 </head>
