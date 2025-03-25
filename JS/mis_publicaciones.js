@@ -1,28 +1,20 @@
 document.addEventListener("DOMContentLoaded", function () {
+  const posts = document.querySelectorAll(".post");
   const form = document.querySelector(".edit-post-form");
+  document.querySelector(".edit-btn").addEventListener("click", toggleEditForm);
+  document.querySelector(".cancel-btn").addEventListener("click", toggleEditForm);
   form.style.display = "none";
+
+  posts.forEach((post, index) => {
+    post.dataset.currentSlide = 0; // Inicializa cada post con su propio índice de slide
+
+    const prevBtn = post.querySelector(".prev");
+    const nextBtn = post.querySelector(".next");
+
+    prevBtn.addEventListener("click", () => changeSlide(-1, post));
+    nextBtn.addEventListener("click", () => changeSlide(1, post));
+  });
 });
-
-let currentSlide = 0;
-
-document.querySelector(".edit-btn").addEventListener("click", toggleEditForm);
-document.querySelector(".cancel-btn").addEventListener("click", toggleEditForm);
-
-function changeSlide(direction, postIndex) {
-  const carousels = document.querySelectorAll(".carousel-container");
-  const totalSlides = carousels[postIndex].children.length;
-
-  currentSlide += direction;
-
-  if (currentSlide < 0) {
-    currentSlide = totalSlides - 1;
-  } else if (currentSlide >= totalSlides) {
-    currentSlide = 0;
-  }
-
-  const translateValue = -currentSlide * 100 + "%";
-  carousels[postIndex].style.transform = "translateX(" + translateValue + ")";
-}
 
 function toggleEditForm() {
   const form = document.querySelector(".edit-post-form");
@@ -68,4 +60,22 @@ function previewImages(event) {
   }
   const buttons = document.querySelector(".buttons-edit-carousel");
   buttons.style.display = "block";
+}
+
+function changeSlide(direction, post) {
+  const carouselContainer = post.querySelector(".carousel-container");
+  const slides = carouselContainer.children;
+  let currentSlide = parseInt(post.dataset.currentSlide, 10);
+
+  currentSlide += direction;
+
+  if (currentSlide < 0) {
+    currentSlide = slides.length - 1;
+  } else if (currentSlide >= slides.length) {
+    currentSlide = 0;
+  }
+
+  post.dataset.currentSlide = currentSlide; // Actualiza el slide actual del post
+  const translateValue = -currentSlide * 100 + "%";
+  carouselContainer.style.transform = "translateX(" + translateValue + ")";
 }

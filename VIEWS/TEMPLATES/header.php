@@ -7,6 +7,7 @@
       <li><a href="usuario">Mi Perfil</a></li>
       <li><a href="reportes">Reportes</a></li>
       <li><a href="mensajes">Chats</a></li>
+      <li><a href="contactos">Contactos</a></li>
       <li><a href="/">Feed</a></li>
       <li><a href="mis_publicaciones">Mis Publicaciones</a></li>
       <li><a href="inicio_sesion">Iniciar Sesión</a></li>

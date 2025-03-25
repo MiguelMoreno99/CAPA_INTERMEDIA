@@ -56,11 +56,12 @@ document.addEventListener("DOMContentLoaded", function () {
     return isValid;
   }
   function validarFormulario() {
-    if (validarCorreo() && ValidarContrasenia()) {
-      return true;
-    } else {
-      return false;
-    }
+    let isValid = true; // Se asume que todo está correcto
+
+    if (!validarCorreo()) isValid = false;
+    if (!ValidarContrasenia()) isValid = false;
+
+    return isValid; // Retorna false si hay al menos un error
   }
 
   // Manejar el envío del formulario
@@ -68,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
     event.preventDefault();
     if (validarFormulario()) {
       alert("Inicio de Sesion Exitoso!");
-      window.location.href = "grupos"; // Cambia "index.html" por tu página principal
+      window.location.href = "/"; // Cambia "index.html" por tu página principal
     } else {
       alert("Por favor, corrige los errores antes de enviar.");
       return false; // Evita el envío si hay errores

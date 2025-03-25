@@ -7,6 +7,7 @@ $routes = [
     '' => 'CONTROLLERS/pagina_principal.php',
     'inicio_sesion' => 'CONTROLLERS/inicio_sesion.php',
     'mensajes' => 'CONTROLLERS/mensajes.php',
+    'contactos' => 'CONTROLLERS/contactos.php',
     'mis_publicaciones' => 'CONTROLLERS/mis_publicaciones.php',
     'nueva_publicacion' => 'CONTROLLERS/nueva_publicacion.php',
     'pagina_principal' => 'CONTROLLERS/pagina_principal.php',
