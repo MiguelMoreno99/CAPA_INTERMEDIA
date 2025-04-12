@@ -12,7 +12,7 @@
       <li><a href="mis_publicaciones">Mis Publicaciones</a></li>
       <li><a href="inicio_sesion">Iniciar Sesión</a></li>
       <li><a href="registro_usuario">Registrarse</a></li>
-      <li><a href="/">Cerrar sesion</a></li>
+      <li><a href="inicio_sesion">Cerrar sesion</a></li>
     </ul>
   </nav>
 </header>

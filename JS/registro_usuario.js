@@ -1,7 +1,7 @@
 // Seleccionar todos los campos
 const nombreInput = document.getElementById("nombre");
-const apellidoPaternoInput = document.getElementById("apellido_paterno");
-const apellidoMaternoInput = document.getElementById("apellido_materno");
+const apellidosInput = document.getElementById("apellidos");
+const nombreUsuarioInput = document.getElementById("nombre_usuario");
 const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
 const confirmPasswordInput = document.getElementById("confirm_password");
@@ -15,6 +15,8 @@ const registerBtn = document.getElementById("registerBtn");
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Correo válido
 const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/; // Contraseña válida
 const nombreRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/; // Solo letras y espacios
+const nombreUsuarioRegex = /^[A-Za-z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+$/;
+
 
 // Función para mostrar errores
 function showError(input, message) {
@@ -40,11 +42,11 @@ function clearError(input) {
 nombreInput.addEventListener("input", function () {
   validarNombre();
 });
-apellidoPaternoInput.addEventListener("input", function () {
-  validarApellidoPaterno();
+apellidosInput.addEventListener("input", function () {
+  validarApellidos();
 });
-apellidoMaternoInput.addEventListener("input", function () {
-  validarApellidoMaterno();
+nombreUsuarioInput.addEventListener("input", function () {
+  validarNombreUsuario();
 });
 emailInput.addEventListener("input", function () {
   validarCorreo();
@@ -79,29 +81,29 @@ function validarNombre() {
   }
   return isValid;
 }
-function validarApellidoPaterno() {
+function validarApellidos() {
   let isValid = true;
-  if (apellidoPaternoInput.value.trim() === "") {
-    showError(apellidoPaternoInput, "El apellido paterno es obligatorio.");
+  if (apellidosInput.value.trim() === "") {
+    showError(apellidosInput, "El apellido es obligatorio.");
     isValid = false;
-  } else if (!nombreRegex.test(apellidoPaternoInput.value)) {
-    showError(apellidoPaternoInput, "Solo se permiten letras y espacios.");
+  } else if (!nombreRegex.test(apellidosInput.value)) {
+    showError(apellidosInput, "Solo se permiten letras y espacios.");
     isValid = false;
   } else {
-    clearError(apellidoPaternoInput);
+    clearError(apellidosInput);
   }
   return isValid;
 }
-function validarApellidoMaterno() {
+function validarNombreUsuario() {
   let isValid = true;
-  if (apellidoMaternoInput.value.trim() === "") {
-    showError(apellidoMaternoInput, "El apellido materno es obligatorio.");
+  if (nombreUsuarioInput.value.trim() === "") {
+    showError(nombreUsuarioInput, "El nombre de usuario es obligatorio.");
     isValid = false;
-  } else if (!nombreRegex.test(apellidoMaternoInput.value)) {
-    showError(apellidoMaternoInput, "Solo se permiten letras y espacios.");
+  } else if (!nombreUsuarioRegex.test(nombreUsuarioInput.value)) {
+    showError(nombreUsuarioInput, "Solo se permiten letras, numeros y caracteres especiales.");
     isValid = false;
   } else {
-    clearError(apellidoMaternoInput);
+    clearError(nombreUsuarioInput);
   }
   return isValid;
 }
@@ -168,8 +170,8 @@ function validarFormulario() {
   let isValid = true; // Se asume que todo está correcto
 
   if (!validarNombre()) isValid = false;
-  if (!validarApellidoPaterno()) isValid = false;
-  if (!validarApellidoMaterno()) isValid = false;
+  if (!validarApellidos()) isValid = false;
+  if (!validarNombreUsuario()) isValid = false;
   if (!validarCorreo()) isValid = false;
   if (!ValidarContrasenia()) isValid = false;
   if (!validarContraseniaIgual()) isValid = false;

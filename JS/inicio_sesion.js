@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const emailInput = document.getElementById("email");
   const passwordInput = document.getElementById("password");
   const loginBtn = document.getElementById("loginBtn");
+  const form = document.getElementById("inicio_sesionForm");
 
   // Expresión regular para validar correo
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -69,7 +70,8 @@ document.addEventListener("DOMContentLoaded", function () {
     event.preventDefault();
     if (validarFormulario()) {
       alert("Inicio de Sesion Exitoso!");
-      window.location.href = "/"; // Cambia "index.html" por tu página principal
+      form.submit();
+      //window.location.href = "/"; // Cambia "index.html" por tu página principal
     } else {
       alert("Por favor, corrige los errores antes de enviar.");
       return false; // Evita el envío si hay errores

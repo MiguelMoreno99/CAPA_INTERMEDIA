@@ -15,7 +15,7 @@
         <div class="registro-caja">
             <h2>Iniciar Sesión</h2>
 
-            <form id="inicio_sesionForm">
+            <form id="inicio_sesionForm" method="POST" action="/inicio_sesion">
                 <div class="form-grupo">
                     <label for="correo_usuario">Correo Electrónico</label>
                     <input id="email" type="email" name="correo_usuario" autocomplete="username" />
