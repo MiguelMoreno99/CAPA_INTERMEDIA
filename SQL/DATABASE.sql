@@ -3,7 +3,7 @@ use capa_intermedia;
 
 CREATE TABLE Usuarios (
     correo VARCHAR(255) PRIMARY KEY COMMENT 'Identificador unico del usuario',
-    contra VARCHAR(10) NOT NULL COMMENT 'Guarda la contrase;a del usuario',
+    contra VARCHAR(255) NOT NULL COMMENT 'Guarda la contrase;a del usuario',
     nombre VARCHAR(50) NOT NULL COMMENT 'Nombre del usuario',
     apellido VARCHAR(50) NOT NULL COMMENT 'Primer apellido del usuario',
     nombre_usuario VARCHAR(50) UNIQUE NOT NULL COMMENT 'Nombre que el usuario usa en la aplicacion debe de ser unico',

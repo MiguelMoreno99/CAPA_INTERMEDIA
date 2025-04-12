@@ -143,7 +143,6 @@ fotoInput.addEventListener("change", function (event) {
 guardar_cambiosBtn.addEventListener("click", function (event) {
   event.preventDefault();
   if (validarFormulario()) {
-    alert("Se guardó la informacion!");
     window.location.href = "usuario"; // Cambia "index.html" por tu página principal
   } else {
     alert("Por favor, corrige los errores antes de enviar.");

@@ -30,7 +30,7 @@ if (!$usuario) {
                 <img class="profilePreview" id="profilePreview" src="<?= htmlspecialchars($usuario['foto_perfil']) ?>"
                     alt="Foto de perfil" />
                 <span class="edit-icon" onclick="document.getElementById('foto').click();">✏️</span>
-                <input type="file" id="foto" name="imagen_usuario" accept="image/*" onchange="loadFile(event)" hidden />
+                <input type="file" id="foto" name="imagen_usuario" accept="image/*" hidden />
             </div>
 
             <!-- Información del usuario -->

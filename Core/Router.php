@@ -61,14 +61,13 @@ class Router
                 if (is_array($route['controller'])) {
                     [$class, $method] = $route['controller'];
                     Middleware::resolve($route['middleware']);
-                
+
                     $controllerInstance = new $class;
                     return $controllerInstance->$method();
                 } else {
                     Middleware::resolve($route['middleware']);
                     return require base_path($route['controller']);
                 }
-                
             }
         }
 

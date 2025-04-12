@@ -1,4 +1,5 @@
 <?php
+
 namespace Core;
 
 class Model
@@ -10,4 +11,3 @@ class Model
         $this->db = App::resolve(Database::class);
     }
 }
-

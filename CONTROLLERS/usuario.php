@@ -15,21 +15,63 @@ class Usuario
     $this->usuario = new User();
   }
 
-  public function usuarioInfo()
+  public function cargarVistaUsuarioInfo()
   {
     return view('/usuario.php', [
       'heading' => "Usuario"
     ]);
   }
 
-  public function usuarioRegistro()
+  public function cargarVistaRegistro()
   {
     return view('/registro_usuario.php', [
       'heading' => "Registro de Usuario",
     ]);
   }
 
-  public function logIn()
+  public function cargarVistaReportes()
+  {
+    return view('/reportes.php', [
+      'heading' => "Reportes",
+    ]);
+  }
+
+  public function cargarVistaNuevaPublicacion()
+  {
+    return view('/nueva_publicacion.php', [
+      'heading' => "Nueva publicación",
+    ]);
+  }
+
+  public function cargarVistaMisPublicaciones()
+  {
+    return view('/mis_publicaciones.php', [
+      'heading' => "Mis Publicaciones",
+    ]);
+  }
+
+  public function cargarVistaPaginaPrincial()
+  {
+    return view('/pagina_principal.php', [
+      'heading' => "Página Principal",
+    ]);
+  }
+
+  public function cargarVistaMensajes()
+  {
+    return view('/mensajes.php', [
+      'heading' => "Mensajes",
+    ]);
+  }
+
+  public function cargarVistaContactos()
+  {
+    return view('/contactos.php', [
+      'heading' => "Contactos",
+    ]);
+  }
+
+  public function cargarVistaLogin()
   {
     session_unset();
     session_destroy();
@@ -42,12 +84,13 @@ class Usuario
   {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
+
+
       $nombre = $_POST['nombre'] ?? '';
-      $apellido = $_POST['apellido_paterno'] ?? '';
+      $apellido = $_POST['apellido'] ?? '';
       $correo = $_POST['correo_usuario'] ?? '';
       $contra = $_POST['contrasenia_usuario'] ?? '';
       $nombre_usuario = $_POST['nombre_usuario'] ?? '';
-      //$confirm_contra = $_POST['confirm_contrasenia'] ?? '';
       $rol = $_POST['rol'] ?? '0'; //usuario normal se manda como 0
       $foto = $_FILES['imagen_usuario'] ?? null;
       //agregar una validacion para ver que no haya campos vacios
@@ -64,36 +107,30 @@ class Usuario
         }
       }
 
-      //funcion para incrementar el id del usuario
+      $this->res = $this->usuario->listUser($correo);
+      if (!empty($this->res)) {
+        echo "<script>alert('Error, Ya hay un usuario con ese correo');</script>";
+      } else {
+        $this->usuario->insertUser(
+          $correo,
+          $contra,
+          $nombre,
+          $apellido,
+          $nombre_usuario,
+          $ruta_foto,
+          $rol
+        );
 
+        safeSessionStart();
+        $this->datos_usuario = $this->usuario->listUser($correo);
+        $_SESSION['usuario'] = $this->datos_usuario;
 
-      //print($contra);
-      $this->usuario->insertUser(
-        $correo,
-        $contra,
-        $nombre,
-        $apellido,
-        $nombre_usuario,
-        $ruta_foto,
-        $rol
-        //poner el id si se ocupa
-      );
-
-      safeSessionStart();
-      $this->datos_usuario = $this->usuario->listUser($correo);
-      $_SESSION['usuario'] = $this->datos_usuario;
-
-      // Redirect or return success view
-      return view('/pagina_principal.php', [
-        'heading' => 'Página Principal'
-      ]);
+        echo "<script>console.log('Usuario agregado exitosamente');</script>";
+        // Redirect or return success view
+        $this->cargarVistaLogin();
+      }
     }
-
-    // In case of direct access or failure
-    return view('/registro_usuario.php', [
-      'heading' => 'Registro de Usuario',
-      'error' => 'Método inválido.'
-    ]);
+    $this->cargarVistaRegistro();
   }
 
   public function verificarCredenciales()
@@ -104,31 +141,17 @@ class Usuario
         $contra = $_POST['contrasenia_usuario'];
 
         $this->res = $this->usuario->verifyUser($correo, $contra);
-        $value = array_values($this->res)[0];
-        //echo $value;
-        if ($value == 1) {
+        if (empty($this->res)) {
+          echo "<script>alert('Error, Verifique sus Credenciales');</script>";
+          $this->cargarVistaLogin();
+        } else {
+          echo "<script>alert('Inicio de sesión exitoso');</script>";
           safeSessionStart();
           $this->datos_usuario = $this->usuario->listUser($correo);
           $_SESSION['usuario'] = $this->datos_usuario;
-          //print_r($this->datos_usuario);
-          return view('/pagina_principal.php', [
-            'heading' => "Página Principal",
-          ]);
-        } else {
-          $this->logIn();
+          $this->cargarVistaUsuarioInfo();
         }
       }
     }
   }
-
-  /* public function traerInfoUsuario(){
-    if ($_SERVER['REQUEST_METHOD'] === 'POST'){
-      if(isset($_POST['correo_usuario'])){
-        $correo = $_POST['correo_usuario']
-      }
-    }
-  } */
 }
-//sumar el id de usuario
-
-//require 'VIEWS/usuario.php';

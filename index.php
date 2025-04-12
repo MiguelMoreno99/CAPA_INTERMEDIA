@@ -1,12 +1,12 @@
 <?php
 session_start();
 //const BASE_PATH = __DIR__.'/../';
-const BASE_PATH = __DIR__.'/';
+const BASE_PATH = __DIR__ . '/';
 
 //print(BASE_PATH);
 //$functions = BASE_PATH.'Core/functions.php';
 //print($functions);
-require BASE_PATH.'Core/functions.php';
+require BASE_PATH . 'Core/functions.php';
 
 spl_autoload_register(function ($class) {
     $class = str_replace('\\', '/', $class); // Converts MODELS\User => MODELS/User

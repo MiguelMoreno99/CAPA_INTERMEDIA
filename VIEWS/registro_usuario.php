@@ -17,13 +17,13 @@
 
             <form id="registro_usuarioForm" method="POST" action="/registro_usuario" enctype="multipart/form-data">
                 <div class="form-grupo">
-                    <label for="nombre">Nombre:</label>
+                    <label for="nombre">Nombre(s):</label>
                     <input type="text" id="nombre" name="nombre" />
                     <div class="error-message"></div>
                 </div>
                 <div class="form-grupo">
                     <label for="Usuario">Apellido(s):</label>
-                    <input type="text" id="apellidos" name="apellidos" />
+                    <input type="text" id="apellido" name="apellido" />
                     <div class="error-message"></div>
                 </div>
                 <div class="form-grupo">
@@ -62,7 +62,7 @@
                 </div>
                 <div class="form-grupo">
                     <img class="profilePreview" id="profilePreview" src="IMG/perfil.webp" alt="Foto de perfil" />
-                    <input type="file" id="foto" name="imagen_usuario" accept="image/*" onchange="loadFile(event)" />
+                    <input type="file" id="foto" name="imagen_usuario" accept="image/*" />
                     <div class="error-message"></div>
                 </div>
                 <button type="submit" id="registerBtn" class="btn">

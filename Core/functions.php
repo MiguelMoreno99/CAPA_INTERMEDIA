@@ -11,11 +11,10 @@ function dd($var)
     die();
 }
 
-
-function isUri($route)
-{
-    return $_SERVER['REQUEST_URI'] === $route ? 'bg-gray-900 text-white ' : 'text-gray-300 hover:bg-gray-700 hover:text-white ';
-}
+// function isUri($route)
+// {
+//     return $_SERVER['REQUEST_URI'] === $route ? 'bg-gray-900 text-white ' : 'text-gray-300 hover:bg-gray-700 hover:text-white ';
+// }
 
 function abort($code = 404)
 {
@@ -40,13 +39,14 @@ function base_path($path): string
 }
 
 
-function view($path,$attributes = [])
+function view($path, $attributes = [])
 {
     extract($attributes);
     require base_path('VIEWS/') . $path;
 }
 
-function safeSessionStart() {
+function safeSessionStart()
+{
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
     }

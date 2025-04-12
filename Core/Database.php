@@ -18,7 +18,6 @@ class Database
         ]);
     }
 
-    
     public function query($query, $params = [])
     {
         $this->statement = $this->connection->prepare($query);
@@ -27,7 +26,7 @@ class Database
 
         return $this;
     }
-    
+
     public function get()
     {
         return $this->statement->fetchAll();

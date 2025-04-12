@@ -69,9 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
   loginBtn.addEventListener("click", function (event) {
     event.preventDefault();
     if (validarFormulario()) {
-      alert("Inicio de Sesion Exitoso!");
       form.submit();
-      //window.location.href = "/"; // Cambia "index.html" por tu página principal
     } else {
       alert("Por favor, corrige los errores antes de enviar.");
       return false; // Evita el envío si hay errores

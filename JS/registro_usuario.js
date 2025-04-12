@@ -1,6 +1,6 @@
 // Seleccionar todos los campos
 const nombreInput = document.getElementById("nombre");
-const apellidosInput = document.getElementById("apellidos");
+const apellidoInput = document.getElementById("apellido");
 const nombreUsuarioInput = document.getElementById("nombre_usuario");
 const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
@@ -10,6 +10,7 @@ const radiosInput = document.getElementsByName("rol");
 const radioGrupo = document.getElementById("radio-grupo");
 const profilePreview = document.getElementById("profilePreview");
 const registerBtn = document.getElementById("registerBtn");
+const form = document.getElementById("registro_usuarioForm");
 
 // Expresiones regulares para validación
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Correo válido
@@ -42,8 +43,8 @@ function clearError(input) {
 nombreInput.addEventListener("input", function () {
   validarNombre();
 });
-apellidosInput.addEventListener("input", function () {
-  validarApellidos();
+apellidoInput.addEventListener("input", function () {
+  validarApellido();
 });
 nombreUsuarioInput.addEventListener("input", function () {
   validarNombreUsuario();
@@ -81,16 +82,16 @@ function validarNombre() {
   }
   return isValid;
 }
-function validarApellidos() {
+function validarApellido() {
   let isValid = true;
-  if (apellidosInput.value.trim() === "") {
-    showError(apellidosInput, "El apellido es obligatorio.");
+  if (apellidoInput.value.trim() === "") {
+    showError(apellidoInput, "El apellido es obligatorio.");
     isValid = false;
-  } else if (!nombreRegex.test(apellidosInput.value)) {
-    showError(apellidosInput, "Solo se permiten letras y espacios.");
+  } else if (!nombreRegex.test(apellidoInput.value)) {
+    showError(apellidoInput, "Solo se permiten letras y espacios.");
     isValid = false;
   } else {
-    clearError(apellidosInput);
+    clearError(apellidoInput);
   }
   return isValid;
 }
@@ -170,7 +171,7 @@ function validarFormulario() {
   let isValid = true; // Se asume que todo está correcto
 
   if (!validarNombre()) isValid = false;
-  if (!validarApellidos()) isValid = false;
+  if (!validarApellido()) isValid = false;
   if (!validarNombreUsuario()) isValid = false;
   if (!validarCorreo()) isValid = false;
   if (!ValidarContrasenia()) isValid = false;
@@ -197,8 +198,7 @@ fotoInput.addEventListener("change", function (event) {
 registerBtn.addEventListener("click", function (event) {
   event.preventDefault();
   if (validarFormulario()) {
-    alert("Registro exitoso!");
-    window.location.href = "inicio_sesion"; // Cambia "index.html" por tu página principal
+    form.submit();
   } else {
     alert("Por favor, corrige los errores antes de enviar.");
     return false; // Evita el envío si hay errores

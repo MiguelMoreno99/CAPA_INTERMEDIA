@@ -3,7 +3,7 @@ use capa_intermedia;
 DELIMITER $$ 
 CREATE PROCEDURE `insertar_usuario`(
     IN correo_ VARCHAR(50),
-    IN contra_ VARCHAR(10),
+    IN contra_ VARCHAR(255),
     IN nombre_ VARCHAR(30), 
     IN apellido_ VARCHAR(30),
     IN nombreusuario_ VARCHAR(30),
@@ -22,7 +22,7 @@ CREATE PROCEDURE `traer_datos_usuario`(
   IN correo_ VARCHAR(50) 
 )
 BEGIN
-    SELECT correo, contra, nombre, apellido, nombre_usuario, foto_perfil, id_usuario
+    SELECT correo, contra, nombre, apellido, nombre_usuario, foto_perfil, usuario_administrador
     FROM usuarios
     WHERE correo = correo_;
 END$$
@@ -31,7 +31,7 @@ DELIMITER ;
 DELIMITER $$ 
 CREATE PROCEDURE `editar_datos_usuario`(
    IN correo_ VARCHAR(50),
-    IN contra_ VARCHAR(12),
+    IN contra_ VARCHAR(255),
     IN nombre_ VARCHAR(30), 
     IN apellido_ VARCHAR(30),
     IN nombre_usuario_ VARCHAR(30),
@@ -52,7 +52,7 @@ DELIMITER ;
 DELIMITER $$ 
 CREATE PROCEDURE `verificar_usuario`(
    IN correo_ varchar(50), 
-    IN contra_ varchar(10)
+    IN contra_ varchar(255)
 )
 BEGIN
     SELECT EXISTS(
