@@ -1,16 +1,19 @@
 // Seleccionar todos los campos
 const nombreInput = document.getElementById("nombre");
-const apellidoPaternoInput = document.getElementById("apellido_paterno");
-const apellidoMaternoInput = document.getElementById("apellido_materno");
+const apellidoInput = document.getElementById("apellido");
+const nombreUsuarioInput = document.getElementById("nombre_usuario");
 const passwordInput = document.getElementById("password");
 const confirmPasswordInput = document.getElementById("confirm_password");
-const fotoInput = document.getElementById("foto");
-const profilePreview = document.getElementById("profilePreview");
+// const fotoInput = document.getElementById("foto");
+// const profilePreview = document.getElementById("profilePreview");
 const guardar_cambiosBtn = document.getElementById("guardar_cambiosBtn");
+const form = document.getElementById("info_usuarioForm");
 
 // Expresiones regulares para validación
 const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/; // Contraseña válida
 const nombreRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/; // Solo letras y espacios
+const nombreUsuarioRegex = /^[A-Za-z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+$/;
+
 
 // Función para mostrar errores
 function showError(input, message) {
@@ -36,11 +39,11 @@ function clearError(input) {
 nombreInput.addEventListener("input", function () {
   validarNombre();
 });
-apellidoPaternoInput.addEventListener("input", function () {
-  validarApellidoPaterno();
+apellidoInput.addEventListener("input", function () {
+  validarApellido();
 });
-apellidoMaternoInput.addEventListener("input", function () {
-  validarApellidoMaterno();
+nombreUsuarioInput.addEventListener("input", function () {
+  validarNombreUsuario();
 });
 passwordInput.addEventListener("input", function () {
   ValidarContrasenia();
@@ -64,29 +67,29 @@ function validarNombre() {
   }
   return isValid;
 }
-function validarApellidoPaterno() {
+function validarApellido() {
   let isValid = true;
-  if (apellidoPaternoInput.value.trim() === "") {
-    showError(apellidoPaternoInput, "El apellido paterno es obligatorio.");
+  if (apellidoInput.value.trim() === "") {
+    showError(apellidoInput, "El apellido es obligatorio.");
     isValid = false;
-  } else if (!nombreRegex.test(apellidoPaternoInput.value)) {
-    showError(apellidoPaternoInput, "Solo se permiten letras y espacios.");
+  } else if (!nombreRegex.test(apellidoInput.value)) {
+    showError(apellidoInput, "Solo se permiten letras y espacios.");
     isValid = false;
   } else {
-    clearError(apellidoPaternoInput);
+    clearError(apellidoInput);
   }
   return isValid;
 }
-function validarApellidoMaterno() {
+function validarNombreUsuario() {
   let isValid = true;
-  if (apellidoMaternoInput.value.trim() === "") {
-    showError(apellidoMaternoInput, "El apellido materno es obligatorio.");
+  if (nombreUsuarioInput.value.trim() === "") {
+    showError(nombreUsuarioInput, "El nombre de usuario es obligatorio.");
     isValid = false;
-  } else if (!nombreRegex.test(apellidoMaternoInput.value)) {
-    showError(apellidoMaternoInput, "Solo se permiten letras y espacios.");
+  } else if (!nombreUsuarioRegex.test(nombreUsuarioInput.value)) {
+    showError(nombreUsuarioInput, "Solo se permiten letras, números y caracteres especiales.");
     isValid = false;
   } else {
-    clearError(apellidoMaternoInput);
+    clearError(nombreUsuarioInput);
   }
   return isValid;
 }
@@ -119,8 +122,8 @@ function validarFormulario() {
   let isValid = true; // Se asume que todo está correcto
 
   if (!validarNombre()) isValid = false;
-  if (!validarApellidoPaterno()) isValid = false;
-  if (!validarApellidoMaterno()) isValid = false;
+  if (!validarApellido()) isValid = false;
+  if (!validarNombreUsuario()) isValid = false;
   if (!ValidarContrasenia()) isValid = false;
   if (!validarContraseniaIgual()) isValid = false;
 
@@ -128,22 +131,22 @@ function validarFormulario() {
 }
 
 // Previsualización de la imagen
-fotoInput.addEventListener("change", function (event) {
-  const file = event.target.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = function (e) {
-      profilePreview.src = e.target.result;
-    };
-    reader.readAsDataURL(file);
-  }
-});
+// fotoInput.addEventListener("change", function (event) {
+//   const file = event.target.files[0];
+//   if (file) {
+//     const reader = new FileReader();
+//     reader.onload = function (e) {
+//       profilePreview.src = e.target.result;
+//     };
+//     reader.readAsDataURL(file);
+//   }
+// });
 
 // Manejar el envío del formulario
 guardar_cambiosBtn.addEventListener("click", function (event) {
   event.preventDefault();
   if (validarFormulario()) {
-    window.location.href = "usuario"; // Cambia "index.html" por tu página principal
+    form.submit();
   } else {
     alert("Por favor, corrige los errores antes de enviar.");
     return false; // Evita el envío si hay errores

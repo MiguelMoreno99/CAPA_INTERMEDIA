@@ -3,6 +3,7 @@
 namespace CONTROLLERS;
 
 use MODELS\User;
+use SessionHandler;
 
 class Usuario
 {
@@ -84,8 +85,6 @@ class Usuario
   {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-
-
       $nombre = $_POST['nombre'] ?? '';
       $apellido = $_POST['apellido'] ?? '';
       $correo = $_POST['correo_usuario'] ?? '';
@@ -124,13 +123,40 @@ class Usuario
         safeSessionStart();
         $this->datos_usuario = $this->usuario->listUser($correo);
         $_SESSION['usuario'] = $this->datos_usuario;
-
         echo "<script>console.log('Usuario agregado exitosamente');</script>";
         // Redirect or return success view
         $this->cargarVistaLogin();
       }
     }
-    $this->cargarVistaRegistro();
+  }
+
+  public function procesarCambiosUsuario()
+  {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+      $correo = $_SESSION['usuario']['correo'] ?? '';
+      $nombre = $_POST['nombre'] ?? '';
+      $apellido = $_POST['apellido'] ?? '';
+      $nombre_usuario = $_POST['nombre_usuario'] ?? '';
+      $contra = $_POST['contrasenia_usuario'] ?? '';
+
+
+      $this->usuario->updateUser(
+        $correo,
+        $contra,
+        $nombre,
+        $apellido,
+        $nombre_usuario,
+        ""
+      );
+
+      $this->datos_usuario = $this->usuario->listUser($correo);
+      $_SESSION['usuario'] = $this->datos_usuario;
+
+      echo "<script>alert('Usuario modificado exitosamente');</script>";
+      // Redirect or return success view
+      $this->cargarVistaUsuarioInfo();
+    }
   }
 
   public function verificarCredenciales()

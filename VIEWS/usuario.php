@@ -27,33 +27,31 @@ if (!$usuario) {
             <!-- Cabecera del perfil -->
             <div class="Perfil-Container">
                 <h1><?= htmlspecialchars($usuario['correo']) ?></h1>
-                <img class="profilePreview" id="profilePreview" src="<?= htmlspecialchars($usuario['foto_perfil']) ?>"
-                    alt="Foto de perfil" />
-                <span class="edit-icon" onclick="document.getElementById('foto').click();">✏️</span>
-                <input type="file" id="foto" name="imagen_usuario" accept="image/*" hidden />
+                <img class="profilePreview2" id="profilePreview2" src="<?= htmlspecialchars($usuario['foto_perfil']) ?>"
+                    alt="Foto de perfil 2" />
             </div>
 
             <!-- Información del usuario -->
             <div class="Info-Container">
                 <div class="divInfo">
-                    <form id="info_usuarioForm">
+                    <form id="info_usuarioForm" method="POST" action="/usuario">
                         <div class="form-grupo">
                             <label for="nombre">Nombre(s):</label>
-                            <input type="text" id="nombre" name="nombre_usuario"
+                            <input type="text" id="nombre" name="nombre"
                                 value="<?= htmlspecialchars($usuario['nombre']) ?>" autocomplete="username" />
                             <div class="error-message"></div>
                         </div>
 
                         <div class="form-grupo">
                             <label for="apellido_paterno">Apellido(s):</label>
-                            <input type="text" id="apellido_paterno" name="apellido_paterno"
+                            <input type="text" id="apellido" name="apellido"
                                 value="<?= htmlspecialchars($usuario['apellido']) ?>" autocomplete="username" />
                             <div class="error-message"></div>
                         </div>
 
                         <div class="form-grupo">
-                            <label for="apellido_materno">Nombre usuario:</label>
-                            <input type="text" id="apellido_materno" name="apellido_materno"
+                            <label for="nombre_usuario">Nombre usuario:</label>
+                            <input type="text" id="nombre_usuario" name="nombre_usuario"
                                 value="<?= htmlspecialchars($usuario['nombre_usuario']) ?>" autocomplete="username" />
                             <div class="error-message"></div>
                         </div>

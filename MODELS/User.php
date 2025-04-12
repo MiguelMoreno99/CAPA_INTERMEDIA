@@ -20,7 +20,6 @@ class User extends Model
     $query = "CALL insertar_usuario(:correo, :contra, :nombre, :apellido, :nombre_usuario, :foto_perfil, :usuario_administrador, :id_usuario)";
 
     $hash = password_hash($contra, PASSWORD_DEFAULT);
-    echo "<script>console.log('$hash');</script>";
 
     $params = [
       'correo' => $correo,
@@ -37,6 +36,38 @@ class User extends Model
       $this->db->query($query, $params);
     } catch (\Exception $e) {
       echo "Error al agregar usuario: " . $e->getMessage();
+    }
+  }
+
+  public function updateUser(
+    $correo,
+    $contra,
+    $nombre,
+    $apellido,
+    $nombre_usuario,
+    $foto_perfil,
+  ) {
+    $query = "CALL editar_datos_usuario(:correo, :contra, :nombre, :apellido, :nombre_usuario, :foto_perfil)";
+
+    if (empty($contra)) {
+      $hash = null; // No se actualiza la contraseña  
+    } else {
+      $hash = password_hash($contra, PASSWORD_DEFAULT);
+    }
+
+    $params = [
+      'correo' => $correo,
+      'contra' => $hash,
+      'nombre' => $nombre,
+      'apellido' => $apellido,
+      'nombre_usuario' => $nombre_usuario,
+      'foto_perfil' => $foto_perfil
+    ];
+
+    try {
+      $this->db->query($query, $params);
+    } catch (\Exception $e) {
+      echo "Error al modificar usuario: " . $e->getMessage();
     }
   }
 
