@@ -3,7 +3,6 @@
 use CONTROLLERS\Usuario;
 
 $router->get('/', [Usuario::class, 'cargarVistaLogin']);
-
 $router->get('/usuario', [Usuario::class, 'cargarVistaUsuarioInfo']);
 $router->get('/registro_usuario', [Usuario::class, 'cargarVistaRegistro']);
 $router->post('/registro_usuario', [Usuario::class, 'procesarRegistro']);

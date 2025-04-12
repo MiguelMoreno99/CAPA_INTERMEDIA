@@ -52,7 +52,7 @@ DELIMITER ;
 DELIMITER $$ 
 CREATE PROCEDURE `verificar_usuario`(
    IN correo_ varchar(50), 
-    IN contra_ varchar(255)
+    IN contra_ varchar(10)
 )
 BEGIN
     SELECT EXISTS(
