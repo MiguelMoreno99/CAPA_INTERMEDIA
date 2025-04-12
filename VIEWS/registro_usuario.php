@@ -15,20 +15,20 @@
         <div class="registro-caja">
             <h2>Registro de Usuario</h2>
 
-            <form id="inicio_sesionForm">
+            <form id="registro_usuarioForm" method="POST" action="/registro_usuario" enctype="multipart/form-data">
                 <div class="form-grupo">
-                    <label for="Nombre">Nombre(s):</label>
-                    <input type="text" id="nombre" name="nombre_usuario" />
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" name="nombre" />
                     <div class="error-message"></div>
                 </div>
                 <div class="form-grupo">
-                    <label for="Usuario">Apellido paterno:</label>
+                    <label for="nombre_usuario">Nombre Usuario:</label>
+                    <input type="text" id="nombre_usuario" name="nombre_usuario" />
+                    <div class="error-message"></div>
+                </div>
+                <div class="form-grupo">
+                    <label for="Usuario">Apellido:</label>
                     <input type="text" id="apellido_paterno" name="apellido_paterno" />
-                    <div class="error-message"></div>
-                </div>
-                <div class="form-grupo">
-                    <label for="Usuario">Apellido materno:</label>
-                    <input type="text" id="apellido_materno" name="apellido_materno" />
                     <div class="error-message"></div>
                 </div>
                 <div class="form-grupo">
@@ -50,11 +50,11 @@
                 <div class="form-grupo">
                     <div class="radio-grupo" id="radio-grupo">
                         <label>
-                            <input type="radio" id="adminRadioInput" name="rol" value="0" />
+                            <input type="radio" id="adminRadioInput" name="rol" value="1" />
                             Usuario Administrador
                         </label>
                         <label>
-                            <input type="radio" id="usuarioRadioInput" name="rol" value="1" />
+                            <input type="radio" id="usuarioRadioInput" name="rol" value="0" />
                             Usuario Normal
                         </label>
                     </div>

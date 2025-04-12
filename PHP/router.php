@@ -1,5 +1,6 @@
 <?php
-// Capturar la URL solicitada
+//ESTE ARCHIVO YA ES OBSOLETO
+// Capturar la URL solicitada 
 $request_uri = trim($_SERVER['REQUEST_URI'], '/');
 
 // Definir rutas disponibles

@@ -1,7 +1,7 @@
 // Seleccionar todos los campos
 const nombreInput = document.getElementById("nombre");
 const apellidoPaternoInput = document.getElementById("apellido_paterno");
-const apellidoMaternoInput = document.getElementById("apellido_materno");
+//const apellidoMaternoInput = document.getElementById("apellido_materno");
 const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
 const confirmPasswordInput = document.getElementById("confirm_password");
