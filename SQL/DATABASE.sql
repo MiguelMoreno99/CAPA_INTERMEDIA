@@ -2,15 +2,11 @@ create database capa_intermedia;
 use capa_intermedia;
 
 CREATE TABLE Usuarios (
-    correo VARCHAR(255) PRIMARY KEY COMMENT 'Identificador unico del usuario',
-    contra VARCHAR(255) NOT NULL COMMENT 'Guarda la contrase;a del usuario',
-    nombre VARCHAR(50) NOT NULL COMMENT 'Nombre del usuario',
-    apellido VARCHAR(50) NOT NULL COMMENT 'Primer apellido del usuario',
-    nombre_usuario VARCHAR(50) UNIQUE NOT NULL COMMENT 'Nombre que el usuario usa en la aplicacion debe de ser unico',
+    hash_correo VARCHAR(255) PRIMARY KEY COMMENT 'Identificador unico del usuario y Hash del correo para utilizarlo con la API de gravatar',
+    correo VARCHAR(255) COMMENT 'correo unico del usuario',
+    contra VARCHAR(255) NOT NULL COMMENT 'Guarda la contrasenia encriptada del usuario',
     foto_perfil MEDIUMTEXT COMMENT 'Foto de perfil guardado en medium text ya que se guardaria el codigo base64',
-    usuario_administrador BOOLEAN DEFAULT FALSE COMMENT 'Es un valor booleano que indica si el usuario es administrador o no',
-    bloqueado BOOLEAN DEFAULT FALSE COMMENT 'Es un valor booleano que indica si el contacto esta bloqueado o no solo los admins pueden bloquear otros usuarios',
-    id_usuario INT  -- no se puede poner el auto increment si es tabla
+    tipo_usuario BOOLEAN DEFAULT FALSE COMMENT 'Es un valor booleano que indica si el usuario es administrador o no'
 )COMMENT 'Guarda toda la informacion del usuario'; 
 
 CREATE TABLE Tema (
@@ -23,11 +19,11 @@ CREATE TABLE Publicaciones (
     titulo VARCHAR(255) NOT NULL COMMENT 'titulo de la publicacion',
     tema_id TINYINT COMMENT 'El tema al cual pertenece la publicacion', 
     descripcion TEXT COMMENT 'Descripcion de la publicacion',
-    usuario_correo VARCHAR(255) COMMENT 'El usuario que creo la publicacion',
+    hash_correo VARCHAR(255) COMMENT 'El usuario que creo la publicacion',
     numero_likes INT DEFAULT 0 COMMENT 'A cuantos usuarios les ha gustado la publicacion',
     fecha_publicacion DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Fecha y hora en la que se creo la publicacion',
     FOREIGN KEY (tema_id) REFERENCES Tema(id_tema) ON DELETE SET NULL,
-    FOREIGN KEY (usuario_correo) REFERENCES Usuarios(correo) ON DELETE CASCADE
+    FOREIGN KEY (hash_correo) REFERENCES Usuarios(hash_correo) ON DELETE CASCADE
 )COMMENT 'Almacena la informacion de las publicaciones a excepcion del contenido multimedia que tiene su propia tabla';
 
 CREATE TABLE Contenido_Media (
@@ -42,34 +38,34 @@ CREATE TABLE Comentario_Publicaciones (
     id_comentario_publicacion tinyint AUTO_INCREMENT PRIMARY KEY COMMENT 'Identificador unico de cada comentario',
     publicacion_id TINYINT COMMENT 'Referencia a la publicacion de la que pertenece',
     contenido LONGBLOB NOT NULL COMMENT 'Almacena el texto del comentario',
-    usuario_correo VARCHAR(255),
+    hash_correo VARCHAR(255) COMMENT 'El usuario que creo el comentario',
     fecha_comentario DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Fecha y hora en la que se hizo el comentario',
     FOREIGN KEY (publicacion_id) REFERENCES Publicaciones(id_publicaciones) ON DELETE CASCADE,
-    FOREIGN KEY (usuario_correo) REFERENCES Usuarios(correo) -- No se si tambien ponerle ON DELETE CASCADE 
+    FOREIGN KEY (hash_correo) REFERENCES Usuarios(hash_correo)
 ) COMMENT='Almacena el contenido multimedia de las publicaciones';
 
 CREATE TABLE Mensajes (
     id_mensajes INT AUTO_INCREMENT PRIMARY KEY COMMENT 'Identificador unico de mensajes',
-    emisor VARCHAR(255) COMMENT 'Persona que envia el mensaje es una fk a la tabla de usuario',
-    receptor VARCHAR(255) COMMENT 'Persona que recibe el mensaje es una fk a la tabla de usuario',
+    hash_emisor VARCHAR(255) COMMENT 'Persona que envia el mensaje es una fk a la tabla de usuario',
+    hash_receptor VARCHAR(255) COMMENT 'Persona que recibe el mensaje es una fk a la tabla de usuario',
     texto TEXT COMMENT 'Contenido del mensaje',
     fecha_envio DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Fecha y hora en la que se envio el mensaje',
-    FOREIGN KEY (emisor) REFERENCES Usuarios(correo) ON DELETE CASCADE,
-    FOREIGN KEY (receptor) REFERENCES Usuarios(correo) ON DELETE CASCADE
+    FOREIGN KEY (hash_emisor) REFERENCES Usuarios(hash_correo) ON DELETE CASCADE,
+    FOREIGN KEY (hash_receptor) REFERENCES Usuarios(hash_correo) ON DELETE CASCADE
 ) COMMENT 'Almacena los mensajes entre usuarios';
 
 CREATE TABLE Contactos (
-    usuario VARCHAR(255) COMMENT 'Hace referencia al correo del usuario propietario de la cuenta',
-    contacto VARCHAR(255) COMMENT 'Hace referencia al correo del usuario que el usuario propietario guarda como contacto',
-    PRIMARY KEY (usuario, contacto),
-    FOREIGN KEY (usuario) REFERENCES Usuarios(correo) ON DELETE CASCADE,
-    FOREIGN KEY (contacto) REFERENCES Usuarios(correo) ON DELETE CASCADE
+    hash_usuario VARCHAR(255) COMMENT 'Hace referencia al correo del usuario propietario de la cuenta',
+    hash_contacto VARCHAR(255) COMMENT 'Hace referencia al correo del usuario que el usuario propietario guarda como contacto',
+    PRIMARY KEY (hash_usuario, hash_contacto),
+    FOREIGN KEY (hash_usuario) REFERENCES Usuarios(hash_correo) ON DELETE CASCADE,
+    FOREIGN KEY (hash_contacto) REFERENCES Usuarios(hash_correo) ON DELETE CASCADE
 )COMMENT 'Almacena la informacion de los contactos, cuenta con una PK compuesta del porpietario de la cuenta y el contacto';
 
 CREATE TABLE Favoritos (
-    usuario VARCHAR(255) COMMENT 'El usuario propietario de la cuenta',
+    hash_usuario VARCHAR(255) COMMENT 'El usuario propietario de la cuenta',
     publicacion_id TINYINT COMMENT'La publicacion que se guarda',
-    PRIMARY KEY (usuario, publicacion_id),
-    FOREIGN KEY (usuario) REFERENCES Usuarios(correo) ON DELETE CASCADE,
+    PRIMARY KEY (hash_usuario, publicacion_id),
+    FOREIGN KEY (hash_usuario) REFERENCES Usuarios(hash_correo) ON DELETE CASCADE,
     FOREIGN KEY (publicacion_id) REFERENCES Publicaciones(id_publicaciones) ON DELETE CASCADE
 )COMMENT 'Almacena las publicaciones que el usuario propietario clasifica como favoritos';

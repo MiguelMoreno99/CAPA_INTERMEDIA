@@ -8,28 +8,23 @@ class User extends Model
 {
 
   public function insertUser(
+    $hash_correo,
     $correo,
     $contra,
-    $nombre,
-    $apellido,
-    $nombre_usuario,
     $foto_perfil,
-    $usuario_admin,
-    $id_usuario = null
+    $tipo_usuario
   ) {
-    $query = "CALL insertar_usuario(:correo, :contra, :nombre, :apellido, :nombre_usuario, :foto_perfil, :usuario_administrador, :id_usuario)";
+
+    $query = "CALL insertar_usuario(:hash_correo, :correo, :contra, :foto_perfil, :tipo_usuario)";
 
     $hash = password_hash($contra, PASSWORD_DEFAULT);
 
     $params = [
+      'hash_correo' => $hash_correo,
       'correo' => $correo,
       'contra' => $hash,
-      'nombre' => $nombre,
-      'apellido' => $apellido,
-      'nombre_usuario' => $nombre_usuario,
       'foto_perfil' => $foto_perfil,
-      'usuario_administrador' => $usuario_admin,
-      'id_usuario' => $id_usuario
+      'tipo_usuario' => $tipo_usuario
     ];
 
     try {
@@ -40,28 +35,16 @@ class User extends Model
   }
 
   public function updateUser(
-    $correo,
-    $contra,
-    $nombre,
-    $apellido,
-    $nombre_usuario,
-    $foto_perfil,
+    $hash_correo,
+    $contra
   ) {
-    $query = "CALL editar_datos_usuario(:correo, :contra, :nombre, :apellido, :nombre_usuario, :foto_perfil)";
+    $query = "CALL editar_datos_usuario(:hash_correo, :contra)";
 
-    if (empty($contra)) {
-      $hash = null; // No se actualiza la contraseña  
-    } else {
-      $hash = password_hash($contra, PASSWORD_DEFAULT);
-    }
+    $hash = password_hash($contra, PASSWORD_DEFAULT);
 
     $params = [
-      'correo' => $correo,
-      'contra' => $hash,
-      'nombre' => $nombre,
-      'apellido' => $apellido,
-      'nombre_usuario' => $nombre_usuario,
-      'foto_perfil' => $foto_perfil
+      'hash_correo' => $hash_correo,
+      'contra' => $hash
     ];
 
     try {
@@ -71,10 +54,10 @@ class User extends Model
     }
   }
 
-  public function listUser($correo)
+  public function listUser($hash_correo)
   {
-    $query = "CALL traer_datos_usuario(:correo)";
-    $params = ['correo' => $correo];
+    $query = "CALL traer_datos_usuario(:hash_correo)";
+    $params = ['hash_correo' => $hash_correo];
     try {
       $this->db->query($query, $params);
       return $this->db->find();
@@ -83,10 +66,10 @@ class User extends Model
     }
   }
 
-  public function verifyUser($correo, $contra)
+  public function verifyUser($hash_correo, $contra)
   {
-    $query = "CALL traer_datos_usuario(:correo)";
-    $params = ['correo' => $correo];
+    $query = "CALL traer_datos_usuario(:hash_correo)";
+    $params = ['hash_correo' => $hash_correo];
 
     try {
       $this->db->query($query, $params);

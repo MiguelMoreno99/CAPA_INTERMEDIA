@@ -10,7 +10,7 @@
                     <li><a href="usuario">Mi Perfil</a></li>';
 
         // Solo para administradores
-        if ($_SESSION['usuario']['usuario_administrador'] == 1) {
+        if ($_SESSION['usuario']['tipo_usuario'] == 1) {
           echo '<li><a href="reportes">Reportes</a></li>';
         }
 

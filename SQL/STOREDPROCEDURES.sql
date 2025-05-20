@@ -2,63 +2,52 @@ use capa_intermedia;
 
 DELIMITER $$ 
 CREATE PROCEDURE `insertar_usuario`(
-    IN correo_ VARCHAR(50),
+    IN hash_correo_ VARCHAR(255),
+    IN correo_ VARCHAR(255),
     IN contra_ VARCHAR(255),
-    IN nombre_ VARCHAR(30), 
-    IN apellido_ VARCHAR(30),
-    IN nombreusuario_ VARCHAR(30),
     IN fotoperfil_ MEDIUMTEXT,
-    IN usuarioadministrador_ tinyint,
-    IN idusuario_ INT
+    IN tipo_usuario_ tinyint
 )
 BEGIN
-    INSERT INTO Usuarios (correo, contra, nombre, apellido, nombre_usuario, foto_perfil, usuario_administrador, id_usuario) 
-    VALUES(correo_, contra_, nombre_, apellido_, nombreusuario_, fotoperfil_, usuarioadministrador_, idusuario_);
+    INSERT INTO Usuarios (hash_correo, correo, contra, foto_perfil, tipo_usuario) 
+    VALUES(hash_correo_, correo_, contra_, fotoperfil_, tipo_usuario_);
 END$$
 DELIMITER ;
 
 DELIMITER $$ 
 CREATE PROCEDURE `traer_datos_usuario`(
-  IN correo_ VARCHAR(50) 
+    IN hash_correo_ VARCHAR(255) 
 )
 BEGIN
-    SELECT correo, contra, nombre, apellido, nombre_usuario, foto_perfil, usuario_administrador
-    FROM usuarios
-    WHERE correo = correo_;
+    SELECT hash_correo, correo, contra, foto_perfil, tipo_usuario
+    FROM Usuarios
+    WHERE hash_correo = hash_correo_;
 END$$
 DELIMITER ;
 
 DELIMITER $$ 
 CREATE PROCEDURE `editar_datos_usuario`(
-   IN correo_ VARCHAR(50),
-    IN contra_ VARCHAR(255),
-    IN nombre_ VARCHAR(30), 
-    IN apellido_ VARCHAR(30),
-    IN nombre_usuario_ VARCHAR(30),
-    IN foto_perfil_ MEDIUMTEXT
+    IN hash_correo_ VARCHAR(255),
+    IN contra_ VARCHAR(255)
 )
 BEGIN
-    UPDATE usuarios
+    UPDATE Usuarios
     SET 
-		contra = CASE WHEN contra_ != '' THEN contra_ ELSE contra END,
-        nombre = CASE WHEN nombre_ != '' THEN nombre_ ELSE nombre END,
-        apellido = CASE WHEN apellido_ != '' THEN apellido_ ELSE apellido END,
-        nombre_usuario = CASE WHEN nombre_usuario_ != '' THEN nombre_usuario_ ELSE nombre_usuario END,
-        foto_perfil = CASE WHEN foto_perfil_ != '' THEN foto_perfil_ ELSE foto_perfil END
-    WHERE correo = correo_;
+		contra = CASE WHEN contra_ != '' THEN contra_ ELSE contra END
+    WHERE hash_correo = hash_correo_;
 END$$
 DELIMITER ;
 
 DELIMITER $$ 
 CREATE PROCEDURE `verificar_usuario`(
-   IN correo_ varchar(50), 
-    IN contra_ varchar(10)
+   IN hash_correo_ varchar(255), 
+    IN contra_ varchar(255)
 )
 BEGIN
     SELECT EXISTS(
         SELECT 1
-        FROM usuarios
-        WHERE correo = correo_ AND contra = contra_
+        FROM Usuarios
+        WHERE hash_correo = hash_correo_ AND contra = contra_
         ) AS is_valid; -- el nombre de mi columna 
 END$$
 DELIMITER ;

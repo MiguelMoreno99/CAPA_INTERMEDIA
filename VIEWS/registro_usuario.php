@@ -14,46 +14,35 @@
     <main class="registro-contenedor">
         <div class="registro-caja">
             <h2>Registro de Usuario</h2>
+            <h4>Debes de contar con una cuenta activa de GRAVATAR para poder continuar</h4>
 
             <form id="registro_usuarioForm" method="POST" action="/registro_usuario" enctype="multipart/form-data">
                 <div class="form-grupo">
-                    <label for="nombre">Nombre(s):</label>
-                    <input type="text" id="nombre" name="nombre" />
+                    <label for="correo_usuario">Correo electrónico:</label>
+                    <input type="email" id="correo_usuario" name="correo_usuario" autocomplete="username"
+                        placeholder="Correo Electronico" />
+                    <input type="hidden" id="hash_correo" name="hash_correo" />
                     <div class="error-message"></div>
                 </div>
                 <div class="form-grupo">
-                    <label for="Usuario">Apellido(s):</label>
-                    <input type="text" id="apellido" name="apellido" />
+                    <label for="contrasenia_usuario">Contraseña:</label>
+                    <input type="password" id="contrasenia_usuario" name="contrasenia_usuario"
+                        autocomplete="new-password" placeholder="Contraseña" />
                     <div class="error-message"></div>
                 </div>
                 <div class="form-grupo">
-                    <label for="nombre_usuario">Nombre Usuario:</label>
-                    <input type="text" id="nombre_usuario" name="nombre_usuario" />
-                    <div class="error-message"></div>
-                </div>
-                <div class="form-grupo">
-                    <label for="email">Correo electrónico:</label>
-                    <input type="text" id="email" name="correo_usuario" autocomplete="username" />
-                    <div class="error-message"></div>
-                </div>
-                <div class="form-grupo">
-                    <label for="password">Contraseña:</label>
-                    <input type="password" id="password" name="contrasenia_usuario" autocomplete="new-password" />
-                    <div class="error-message"></div>
-                </div>
-                <div class="form-grupo">
-                    <label for="confirm_password">Confirmar contraseña:</label>
-                    <input type="password" id="confirm_password" name="confirm_contrasenia"
-                        autocomplete="new-password" />
+                    <label for="confirmar_contrasenia">Confirmar contraseña:</label>
+                    <input type="password" id="confirmar_contrasenia" name="confirmar_contrasenia"
+                        autocomplete="new-password" placeholder="Confirmar Contraseña" />
                     <div class="error-message"></div>
                 </div>
                 <div class="form-grupo">
                     <div class="radio-grupo" id="radio-grupo">
-                        <label>
+                        <label for="adminRadioInput">
                             <input type="radio" id="adminRadioInput" name="rol" value="1" />
                             Usuario Administrador
                         </label>
-                        <label>
+                        <label for="usuarioRadioInput">
                             <input type="radio" id="usuarioRadioInput" name="rol" value="0" />
                             Usuario Normal
                         </label>
@@ -62,17 +51,22 @@
                 </div>
                 <div class="form-grupo">
                     <img class="profilePreview" id="profilePreview" src="IMG/perfil.webp" alt="Foto de perfil" />
-                    <input type="file" id="foto" name="imagen_usuario" accept="image/*" />
+                    <input type="file" id="foto" name="imagen_usuario" accept="image/*" placeholder="Foto Perfil" />
                     <div class="error-message"></div>
                 </div>
                 <button type="submit" id="registerBtn" class="btn">
                     Registrarse
                 </button>
             </form>
+            <div class="form-grupo">
+                <br><br><label>¿No tienes una cuenta de GRAVATAR?</label>
+                <a href="https://bit.ly/45io7lK">Da clic aquí</a>
+            </div>
         </div>
     </main>
 
     <?php require 'TEMPLATES/footer.php'; ?>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <script src="JS/registro_usuario.js"></script>
 </body>
 

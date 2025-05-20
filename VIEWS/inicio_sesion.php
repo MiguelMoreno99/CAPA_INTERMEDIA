@@ -18,13 +18,16 @@
             <form id="inicio_sesionForm" method="POST" action="/inicio_sesion">
                 <div class="form-grupo">
                     <label for="correo_usuario">Correo Electrónico</label>
-                    <input id="email" type="email" name="correo_usuario" autocomplete="username" />
+                    <input id="correo_usuario" type="email" name="correo_usuario" autocomplete="username"
+                        placeholder="Correo electrónico" />
+                    <input type="hidden" id="hash_correo" name="hash_correo" />
                     <div class="error-message"></div>
                 </div>
 
                 <div class="form-grupo">
                     <label for="contrasenia_usuario">Contraseña</label>
-                    <input id="password" type="password" name="contrasenia_usuario" autocomplete="current-password" />
+                    <input id="contrasenia_usuario" type="password" name="contrasenia_usuario"
+                        autocomplete="current-password" placeholder="Contraseña" />
                     <div class="error-message"></div>
                 </div>
 
@@ -33,7 +36,7 @@
                 </button>
                 <br /><br />
                 <div class="form-grupo">
-                    <label>¿No tienes una cuenta?</label>
+                    <label for="correo_usuario">¿No tienes una cuenta?</label>
                     <a href="registro_usuario">Da clic aquí</a>
                 </div>
             </form>
@@ -41,6 +44,7 @@
     </main>
 
     <?php require 'TEMPLATES/footer.php'; ?>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <script src="JS/inicio_sesion.js"></script>
 </body>
 

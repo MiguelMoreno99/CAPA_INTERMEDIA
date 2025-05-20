@@ -85,14 +85,11 @@ class Usuario
   {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-      $nombre = $_POST['nombre'] ?? '';
-      $apellido = $_POST['apellido'] ?? '';
+      $hash_correo = $_POST['hash_correo'] ?? '';
       $correo = $_POST['correo_usuario'] ?? '';
       $contra = $_POST['contrasenia_usuario'] ?? '';
-      $nombre_usuario = $_POST['nombre_usuario'] ?? '';
-      $rol = $_POST['rol'] ?? '0'; //usuario normal se manda como 0
       $foto = $_FILES['imagen_usuario'] ?? null;
-      //agregar una validacion para ver que no haya campos vacios
+      $rol = $_POST['rol'] ?? '0';
 
       // TODO: Handle file upload
       $ruta_foto = 'IMG/perfil.webp'; // Default fallback
@@ -106,25 +103,23 @@ class Usuario
         }
       }
 
-      $this->res = $this->usuario->listUser($correo);
+      $this->res = $this->usuario->listUser($hash_correo);
       if (!empty($this->res)) {
         echo "<script>alert('Error, Ya hay un usuario con ese correo');</script>";
+        $this->cargarVistaRegistro();
       } else {
         $this->usuario->insertUser(
+          $hash_correo,
           $correo,
           $contra,
-          $nombre,
-          $apellido,
-          $nombre_usuario,
           $ruta_foto,
           $rol
         );
 
         safeSessionStart();
-        $this->datos_usuario = $this->usuario->listUser($correo);
+        $this->datos_usuario = $this->usuario->listUser($hash_correo);
         $_SESSION['usuario'] = $this->datos_usuario;
-        echo "<script>console.log('Usuario agregado exitosamente');</script>";
-        // Redirect or return success view
+        echo "<script>alert('Registro completado de manera exitosa');</script>";
         $this->cargarVistaLogin();
       }
     }
@@ -134,27 +129,18 @@ class Usuario
   {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-      $correo = $_SESSION['usuario']['correo'] ?? '';
-      $nombre = $_POST['nombre'] ?? '';
-      $apellido = $_POST['apellido'] ?? '';
-      $nombre_usuario = $_POST['nombre_usuario'] ?? '';
+      $hash_correo = $_SESSION['usuario']['hash_correo'] ?? '';
       $contra = $_POST['contrasenia_usuario'] ?? '';
 
-
       $this->usuario->updateUser(
-        $correo,
-        $contra,
-        $nombre,
-        $apellido,
-        $nombre_usuario,
-        ""
+        $hash_correo,
+        $contra
       );
 
-      $this->datos_usuario = $this->usuario->listUser($correo);
+      $this->datos_usuario = $this->usuario->listUser($hash_correo);
       $_SESSION['usuario'] = $this->datos_usuario;
 
       echo "<script>alert('Usuario modificado exitosamente');</script>";
-      // Redirect or return success view
       $this->cargarVistaUsuarioInfo();
     }
   }
@@ -163,17 +149,17 @@ class Usuario
   {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       if (isset($_POST['correo_usuario']) && isset($_POST['contrasenia_usuario'])) {
-        $correo = $_POST['correo_usuario'];
+        $hash_correo = $_POST['hash_correo'] ?? '';
         $contra = $_POST['contrasenia_usuario'];
 
-        $this->res = $this->usuario->verifyUser($correo, $contra);
+        $this->res = $this->usuario->verifyUser($hash_correo, $contra);
         if (empty($this->res)) {
           echo "<script>alert('Error, Verifique sus Credenciales');</script>";
           $this->cargarVistaLogin();
         } else {
           echo "<script>alert('Inicio de sesión exitoso');</script>";
           safeSessionStart();
-          $this->datos_usuario = $this->usuario->listUser($correo);
+          $this->datos_usuario = $this->usuario->listUser($hash_correo);
           $_SESSION['usuario'] = $this->datos_usuario;
           $this->cargarVistaUsuarioInfo();
         }

@@ -105,7 +105,7 @@ function fetchData(correoUsuario) {
       let html1 = ""; // Inicializa html1
       // Avatar
       if (data.avatar_url) {
-        html1 = `<img src="https://www.gravatar.com/avatar/${data.hash}" alt="${data.display_name}"></img>`;
+        html1 = `<a href="${data.profile_url}" target="_blank"><img src="https://www.gravatar.com/avatar/${data.hash}" alt="${data.display_name}"></img></a>`;
       }
       // Empieza a construir el HTML
       let html = `<div class="card"><div class="profile">`;
@@ -118,21 +118,29 @@ function fetchData(correoUsuario) {
           html += ` <span>(${data.pronouns})</span>`;
         }
         html += `</h2>`;
+      } else {
+        html += `<h2>Nombre no disponible</h2>`;
       }
 
       // Ubicación
       if (data.location) {
         html += `<p><strong>Ubicación:</strong> ${data.location}</p>`;
+      } else {
+        html += `<p><strong>Ubicación:</strong> No disponible</p>`;
       }
 
       // Ocupación
       if (data.job_title) {
         html += `<p><strong>Ocupación:</strong> ${data.job_title}</p>`;
+      } else {
+        html += `<p><strong>Ocupación:</strong> No disponible</p>`;
       }
 
       // Descripción
       if (data.description) {
         html += `<p><strong>Descripción:</strong> ${data.description}</p>`;
+      } else {
+        html += `<p><strong>Descripción:</strong> No disponible</p>`;
       }
 
       html += `</div></div>`; // Cierra profile-info y profile
@@ -150,6 +158,10 @@ function fetchData(correoUsuario) {
           }
         });
         html += `</div></div>`;
+      } else {
+        html += `<div class="section"><h3>Redes verificadas</h3><div class="social-links">`;
+        html += `<p>No disponible</p>`;
+        html += `</div></div>`;
       }
 
       // Idiomas
@@ -158,6 +170,10 @@ function fetchData(correoUsuario) {
         data.languages.forEach(lang => {
           if (lang.name) html += `<span class="tag">${lang.name}</span>`;
         });
+        html += `</div></div>`;
+      } else {
+        html += `<div class="section"><h3>Idiomas</h3><div class="tags">`;
+        html += `<p>No disponible</p>`;
         html += `</div></div>`;
       }
 
@@ -168,6 +184,10 @@ function fetchData(correoUsuario) {
           if (i.name) html += `<span class="tag">${i.name}</span>`;
         });
         html += `</div></div>`;
+      } else {
+        html += `<div class="section"><h3>Intereses</h3><div class="tags">`;
+        html += `<p>No disponible</p>`;
+        html += `</div></div>`;
       }
 
       // Galería
@@ -176,6 +196,10 @@ function fetchData(correoUsuario) {
         data.gallery.forEach(img => {
           if (img.url) html += `<img src="${img.url}" alt="">`;
         });
+        html += `</div></div>`;
+      } else {
+        html += `<div class="section"><h3>Galería</h3><div class="gallery">`;
+        html += `<p>No disponible</p>`;
         html += `</div></div>`;
       }
 
@@ -201,6 +225,10 @@ function fetchData(correoUsuario) {
           });
         }
 
+        html += `</div>`;
+      } else {
+        html += `<div class="section"><h3>Contacto</h3>`;
+        html += `<p>No disponible</p>`;
         html += `</div>`;
       }
 

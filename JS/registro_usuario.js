@@ -1,23 +1,19 @@
 // Seleccionar todos los campos
-const nombreInput = document.getElementById("nombre");
-const apellidoInput = document.getElementById("apellido");
-const nombreUsuarioInput = document.getElementById("nombre_usuario");
-const emailInput = document.getElementById("email");
-const passwordInput = document.getElementById("password");
-const confirmPasswordInput = document.getElementById("confirm_password");
+
+const emailInput = document.getElementById("correo_usuario");
+const passwordInput = document.getElementById("contrasenia_usuario");
+const confirmPasswordInput = document.getElementById("confirmar_contrasenia");
 const fotoInput = document.getElementById("foto");
-const radiosInput = document.getElementsByName("rol");
 const radioGrupo = document.getElementById("radio-grupo");
 const profilePreview = document.getElementById("profilePreview");
 const registerBtn = document.getElementById("registerBtn");
 const form = document.getElementById("registro_usuarioForm");
 
+const radiosInput = document.getElementsByName("rol");
+
 // Expresiones regulares para validación
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Correo válido
 const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/; // Contraseña válida
-const nombreRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/; // Solo letras y espacios
-const nombreUsuarioRegex = /^[A-Za-z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+$/;
-
 
 // Función para mostrar errores
 function showError(input, message) {
@@ -40,15 +36,6 @@ function clearError(input) {
 }
 
 // Escuchar cambios en los campos
-nombreInput.addEventListener("input", function () {
-  validarNombre();
-});
-apellidoInput.addEventListener("input", function () {
-  validarApellido();
-});
-nombreUsuarioInput.addEventListener("input", function () {
-  validarNombreUsuario();
-});
 emailInput.addEventListener("input", function () {
   validarCorreo();
 });
@@ -69,45 +56,6 @@ radiosInput.forEach((radio) => {
 });
 
 //Funciones para validar los campos
-function validarNombre() {
-  let isValid = true;
-  if (nombreInput.value.trim() === "") {
-    showError(nombreInput, "El nombre es obligatorio.");
-    isValid = false;
-  } else if (!nombreRegex.test(nombreInput.value)) {
-    showError(nombreInput, "Solo se permiten letras y espacios.");
-    isValid = false;
-  } else {
-    clearError(nombreInput);
-  }
-  return isValid;
-}
-function validarApellido() {
-  let isValid = true;
-  if (apellidoInput.value.trim() === "") {
-    showError(apellidoInput, "El apellido es obligatorio.");
-    isValid = false;
-  } else if (!nombreRegex.test(apellidoInput.value)) {
-    showError(apellidoInput, "Solo se permiten letras y espacios.");
-    isValid = false;
-  } else {
-    clearError(apellidoInput);
-  }
-  return isValid;
-}
-function validarNombreUsuario() {
-  let isValid = true;
-  if (nombreUsuarioInput.value.trim() === "") {
-    showError(nombreUsuarioInput, "El nombre de usuario es obligatorio.");
-    isValid = false;
-  } else if (!nombreUsuarioRegex.test(nombreUsuarioInput.value)) {
-    showError(nombreUsuarioInput, "Solo se permiten letras, numeros y caracteres especiales.");
-    isValid = false;
-  } else {
-    clearError(nombreUsuarioInput);
-  }
-  return isValid;
-}
 function validarCorreo() {
   let isValid = true;
   if (!emailRegex.test(emailInput.value)) {
@@ -117,6 +65,21 @@ function validarCorreo() {
     clearError(emailInput);
   }
   return isValid;
+}
+async function validarCorreoGravatar() {
+  try {
+    const result = await fetchData(emailInput.value.trim().toLowerCase());
+    if (!result || result.error === "Profile not found") {
+      showError(emailInput, "Correo electrónico no registrado en Gravatar.");
+      return false;
+    } else {
+      clearError(emailInput);
+      return true;
+    }
+  } catch (err) {
+    showError(emailInput, "Error al conectar con Gravatar.");
+    return false;
+  }
 }
 function ValidarContrasenia() {
   let isValid = true;
@@ -170,9 +133,6 @@ function validarRadio() {
 function validarFormulario() {
   let isValid = true; // Se asume que todo está correcto
 
-  if (!validarNombre()) isValid = false;
-  if (!validarApellido()) isValid = false;
-  if (!validarNombreUsuario()) isValid = false;
   if (!validarCorreo()) isValid = false;
   if (!ValidarContrasenia()) isValid = false;
   if (!validarContraseniaIgual()) isValid = false;
@@ -195,12 +155,32 @@ fotoInput.addEventListener("change", function (event) {
 });
 
 // Manejar el envío del formulario
-registerBtn.addEventListener("click", function (event) {
+registerBtn.addEventListener("click", async function (event) {
   event.preventDefault();
   if (validarFormulario()) {
-    form.submit();
+    const gravatarValido = await validarCorreoGravatar();
+    if (gravatarValido) {
+      let hashInput = document.getElementById("hash_correo");
+      let hash_correo = CryptoJS.SHA256(emailInput.value.trim().toLowerCase()).toString(CryptoJS.enc.Hex);
+      hashInput.value = hash_correo;
+      form.submit();
+    }
   } else {
     alert("Por favor, corrige los errores antes de enviar.");
     return false; // Evita el envío si hay errores
   }
 });
+
+async function fetchData(correoUsuario) {
+  try {
+    const hash = CryptoJS.SHA256(correoUsuario).toString(CryptoJS.enc.Hex);
+    const response = await fetch(`/API/gravatar_proxy.php?hash=${hash}`);
+    if (!response.ok) throw new Error("Error al obtener datos");
+    const data = await response.json();
+    console.log(data);
+    return data;
+  }
+  catch (error) {
+    console.error("Error:", error);
+  }
+}
