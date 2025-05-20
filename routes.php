@@ -24,5 +24,3 @@ $router->get('/contactos', [Usuario::class, 'cargarVistaContactos']);
 
 $router->get('/inicio_sesion', [Usuario::class, 'cargarVistaLogin']);
 $router->post('/inicio_sesion', [Usuario::class, 'verificarCredenciales']);
-
-//$router->get('/contactos', 'CONTROLLERS/contactos.php')->only('auth');

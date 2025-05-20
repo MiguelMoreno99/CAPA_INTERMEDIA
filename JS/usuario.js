@@ -1,19 +1,20 @@
 // Seleccionar todos los campos
-const nombreInput = document.getElementById("nombre");
-const apellidoInput = document.getElementById("apellido");
-const nombreUsuarioInput = document.getElementById("nombre_usuario");
+const correoUsuario = document.getElementById("correoUsuario").innerText.trim().toLowerCase();
+
 const passwordInput = document.getElementById("password");
 const confirmPasswordInput = document.getElementById("confirm_password");
-// const fotoInput = document.getElementById("foto");
-// const profilePreview = document.getElementById("profilePreview");
+
 const guardar_cambiosBtn = document.getElementById("guardar_cambiosBtn");
 const form = document.getElementById("info_usuarioForm");
 
+const infoContainer = document.getElementById('Info-Container');
+const perfilContainer = document.getElementById('Perfil-Container');
+
 // Expresiones regulares para validación
 const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/; // Contraseña válida
-const nombreRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/; // Solo letras y espacios
-const nombreUsuarioRegex = /^[A-Za-z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+$/;
 
+//Datos de Gravatar
+const gravatarData = fetchData(correoUsuario);
 
 // Función para mostrar errores
 function showError(input, message) {
@@ -35,64 +36,16 @@ function clearError(input) {
   }
 }
 
-// Escuchar cambios en los campos
-nombreInput.addEventListener("input", function () {
-  validarNombre();
-});
-apellidoInput.addEventListener("input", function () {
-  validarApellido();
-});
-nombreUsuarioInput.addEventListener("input", function () {
-  validarNombreUsuario();
-});
-passwordInput.addEventListener("input", function () {
-  ValidarContrasenia();
-  validarContraseniaIgual();
-});
-confirmPasswordInput.addEventListener("input", function () {
-  validarContraseniaIgual();
-});
+// // Escuchar cambios en los campos
+// passwordInput.addEventListener("input", function () {
+//   ValidarContrasenia();
+//   validarContraseniaIgual();
+// });
+// confirmPasswordInput.addEventListener("input", function () {
+//   validarContraseniaIgual();
+// });
 
 //Funciones para validar los campos
-function validarNombre() {
-  let isValid = true;
-  if (nombreInput.value.trim() === "") {
-    showError(nombreInput, "El nombre es obligatorio.");
-    isValid = false;
-  } else if (!nombreRegex.test(nombreInput.value)) {
-    showError(nombreInput, "Solo se permiten letras y espacios.");
-    isValid = false;
-  } else {
-    clearError(nombreInput);
-  }
-  return isValid;
-}
-function validarApellido() {
-  let isValid = true;
-  if (apellidoInput.value.trim() === "") {
-    showError(apellidoInput, "El apellido es obligatorio.");
-    isValid = false;
-  } else if (!nombreRegex.test(apellidoInput.value)) {
-    showError(apellidoInput, "Solo se permiten letras y espacios.");
-    isValid = false;
-  } else {
-    clearError(apellidoInput);
-  }
-  return isValid;
-}
-function validarNombreUsuario() {
-  let isValid = true;
-  if (nombreUsuarioInput.value.trim() === "") {
-    showError(nombreUsuarioInput, "El nombre de usuario es obligatorio.");
-    isValid = false;
-  } else if (!nombreUsuarioRegex.test(nombreUsuarioInput.value)) {
-    showError(nombreUsuarioInput, "Solo se permiten letras, números y caracteres especiales.");
-    isValid = false;
-  } else {
-    clearError(nombreUsuarioInput);
-  }
-  return isValid;
-}
 function ValidarContrasenia() {
   let isValid = true;
   if (passwordInput.value.trim() === "") {
@@ -121,34 +74,143 @@ function validarContraseniaIgual() {
 function validarFormulario() {
   let isValid = true; // Se asume que todo está correcto
 
-  if (!validarNombre()) isValid = false;
-  if (!validarApellido()) isValid = false;
-  if (!validarNombreUsuario()) isValid = false;
   if (!ValidarContrasenia()) isValid = false;
   if (!validarContraseniaIgual()) isValid = false;
 
   return isValid; // Retorna false si hay al menos un error
 }
 
-// Previsualización de la imagen
-// fotoInput.addEventListener("change", function (event) {
-//   const file = event.target.files[0];
-//   if (file) {
-//     const reader = new FileReader();
-//     reader.onload = function (e) {
-//       profilePreview.src = e.target.result;
-//     };
-//     reader.readAsDataURL(file);
+// // Manejar el envío del formulario
+// guardar_cambiosBtn.addEventListener("click", function (event) {
+//   event.preventDefault();
+//   if (validarFormulario()) {
+//     form.submit();
+//   } else {
+//     alert("Por favor, corrige los errores antes de enviar.");
+//     return false; // Evita el envío si hay errores
 //   }
 // });
 
-// Manejar el envío del formulario
-guardar_cambiosBtn.addEventListener("click", function (event) {
-  event.preventDefault();
-  if (validarFormulario()) {
-    form.submit();
-  } else {
-    alert("Por favor, corrige los errores antes de enviar.");
-    return false; // Evita el envío si hay errores
-  }
-});
+function fetchData(correoUsuario) {
+
+  const hash = CryptoJS.SHA256(correoUsuario).toString(CryptoJS.enc.Hex);
+  const response = fetch(`/API/gravatar_proxy.php?hash=${hash}`)
+    .then(response => {
+      if (!response.ok) throw new Error("Error al obtener datos");
+      return response.json();
+    })
+    .then(data => {
+      console.log(data); // Aquí puedes renderizar el perfil dinámicamente
+
+      let html1 = ""; // Inicializa html1
+      // Avatar
+      if (data.avatar_url) {
+        html1 = `<img src="https://www.gravatar.com/avatar/${data.hash}" alt="${data.display_name}"></img>`;
+      }
+      // Empieza a construir el HTML
+      let html = `<div class="card"><div class="profile">`;
+
+      // Nombre y pronombres
+      html += `<div class="profile-info">`;
+      if (data.display_name) {
+        html += `<h2>${data.display_name}`;
+        if (data.pronouns) {
+          html += ` <span>(${data.pronouns})</span>`;
+        }
+        html += `</h2>`;
+      }
+
+      // Ubicación
+      if (data.location) {
+        html += `<p><strong>Ubicación:</strong> ${data.location}</p>`;
+      }
+
+      // Ocupación
+      if (data.job_title) {
+        html += `<p><strong>Ocupación:</strong> ${data.job_title}</p>`;
+      }
+
+      // Descripción
+      if (data.description) {
+        html += `<p><strong>Descripción:</strong> ${data.description}</p>`;
+      }
+
+      html += `</div></div>`; // Cierra profile-info y profile
+
+      // Redes verificadas
+      if (Array.isArray(data.verified_accounts) && data.verified_accounts.length > 0) {
+        html += `<div class="section"><h3>Redes verificadas</h3><div class="social-links">`;
+        data.verified_accounts.forEach(account => {
+          if (account.url && account.service_icon) {
+            html += `
+          <span class="tag"> <a href="${account.url}" target="_blank">
+            <img src="${account.service_icon}" alt="${account.service_label}"">
+          </a></span>
+        `;
+          }
+        });
+        html += `</div></div>`;
+      }
+
+      // Idiomas
+      if (Array.isArray(data.languages) && data.languages.length > 0) {
+        html += `<div class="section"><h3>Idiomas</h3><div class="tags">`;
+        data.languages.forEach(lang => {
+          if (lang.name) html += `<span class="tag">${lang.name}</span>`;
+        });
+        html += `</div></div>`;
+      }
+
+      // Intereses
+      if (Array.isArray(data.interests) && data.interests.length > 0) {
+        html += `<div class="section"><h3>Intereses</h3><div class="tags">`;
+        data.interests.forEach(i => {
+          if (i.name) html += `<span class="tag">${i.name}</span>`;
+        });
+        html += `</div></div>`;
+      }
+
+      // Galería
+      if (Array.isArray(data.gallery) && data.gallery.length > 0) {
+        html += `<div class="section"><h3>Galería</h3><div class="gallery">`;
+        data.gallery.forEach(img => {
+          if (img.url) html += `<img src="${img.url}" alt="">`;
+        });
+        html += `</div></div>`;
+      }
+
+      // Contacto
+      if (
+        (data.contact_info && (data.contact_info.email || data.contact_info.cell_phone)) ||
+        (data.payments && Array.isArray(data.payments.links) && data.payments.links.length > 0)
+      ) {
+        html += `<div class="section"><h3>Contacto</h3>`;
+
+        if (data.contact_info?.email) {
+          html += `<p><strong>Correo:</strong> ${data.contact_info.email}</p>`;
+        }
+        if (data.contact_info?.cell_phone) {
+          html += `<p><strong>Celular:</strong> ${data.contact_info.cell_phone}</p>`;
+        }
+
+        if (data.payments?.links) {
+          data.payments.links.forEach(link => {
+            if (link.label && link.url) {
+              html += `<p><strong>${link.label}:</strong> <a href="${link.url}" target="_blank">${link.url}</a></p>`;
+            }
+          });
+        }
+
+        html += `</div>`;
+      }
+
+      html += `</div>`; // Cierra .card
+
+      infoContainer.innerHTML = html;
+      perfilContainer.innerHTML += html1;
+
+    })
+    .catch(error => {
+      console.error("Error:", error);
+    });
+}
