@@ -130,7 +130,7 @@ class Usuario
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       $hash_correo = $_SESSION['usuario']['hash_correo'] ?? '';
-      $contra = $_POST['contrasenia_usuario'] ?? '';
+      $contra = $_POST['contrasenia'] ?? '';
 
       $this->usuario->updateUser(
         $hash_correo,
