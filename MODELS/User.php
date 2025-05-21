@@ -6,7 +6,6 @@ use Core\Model;
 
 class User extends Model
 {
-
   public function insertUser(
     $hash_correo,
     $correo,

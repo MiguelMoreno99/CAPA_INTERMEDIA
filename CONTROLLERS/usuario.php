@@ -65,13 +65,6 @@ class Usuario
     ]);
   }
 
-  public function cargarVistaContactos()
-  {
-    return view('/contactos.php', [
-      'heading' => "Contactos",
-    ]);
-  }
-
   public function cargarVistaLogin()
   {
     session_unset();

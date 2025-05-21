@@ -51,3 +51,68 @@ BEGIN
         ) AS is_valid; -- el nombre de mi columna 
 END$$
 DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE `obtener_contactos_agregados`(
+    IN usuario_hash VARCHAR(255)
+    )
+BEGIN
+    SELECT 
+        u.hash_correo,
+        u.correo
+    FROM Contactos c
+    JOIN Usuarios u ON u.hash_correo = c.hash_contacto
+    WHERE c.hash_usuario = usuario_hash;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE `obtener_usuarios_disponibles`(
+    IN usuario_hash VARCHAR(255)
+    )
+BEGIN
+    SELECT 
+        u.hash_correo,
+        u.correo
+    FROM Usuarios u
+    WHERE u.hash_correo NOT IN (
+        SELECT hash_contacto FROM Contactos WHERE hash_usuario = usuario_hash
+    )
+    AND u.hash_correo != usuario_hash;
+END$$
+DELIMITER ;
+
+-- insert INTO capa_intermedia.contactos VALUES ("2f4acf8f31f887a483c9dd33ab6051d334cfdbb98816333dee1e3a1201ea9d27","c27002e38eb28ea4464f7a09dbbcae616d427bddab221431fb72407caae1be2b");
+
+-- CALL obtener_contactos_agregados("2f4acf8f31f887a483c9dd33ab6051d334cfdbb98816333dee1e3a1201ea9d27");
+-- CALL obtener_contactos_agregados("c27002e38eb28ea4464f7a09dbbcae616d427bddab221431fb72407caae1be2b");
+
+-- CALL obtener_usuarios_disponibles("2f4acf8f31f887a483c9dd33ab6051d334cfdbb98816333dee1e3a1201ea9d27");
+-- CALL obtener_usuarios_disponibles("c27002e38eb28ea4464f7a09dbbcae616d427bddab221431fb72407caae1be2b");
+
+DELIMITER $$
+CREATE PROCEDURE `agregar_contacto`(
+    IN p_hash_usuario VARCHAR(255),
+    IN p_hash_contacto VARCHAR(255)
+)
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM Contactos 
+        WHERE hash_usuario = p_hash_usuario AND hash_contacto = p_hash_contacto
+    ) THEN
+        INSERT INTO Contactos (hash_usuario, hash_contacto)
+        VALUES (p_hash_usuario, p_hash_contacto);
+    END IF;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE `eliminar_contacto`(
+    IN p_hash_usuario VARCHAR(255),
+    IN p_hash_contacto VARCHAR(255)
+)
+BEGIN
+    DELETE FROM Contactos
+    WHERE hash_usuario = p_hash_usuario AND hash_contacto = p_hash_contacto;
+END$$
+DELIMITER ;
