@@ -3,7 +3,7 @@
 namespace CONTROLLERS;
 
 use MODELS\Publication;
-use SessionHandler;
+use Core\Middleware\Middleware;
 
 class Publicacion
 {
@@ -17,6 +17,7 @@ class Publicacion
 
   public function cargarVistaPaginaPrincial()
   {
+    Middleware::resolve('auth'); // Solo usuarios logueados podrán ver esta vista
     return view('/pagina_principal.php', [
       'heading' => "Página Principal",
     ]);

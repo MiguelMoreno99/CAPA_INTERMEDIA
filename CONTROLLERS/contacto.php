@@ -3,7 +3,7 @@
 namespace CONTROLLERS;
 
 use MODELS\Contact;
-use SessionHandler;
+use Core\Middleware\Middleware;
 
 class Contacto
 {
@@ -17,6 +17,7 @@ class Contacto
 
   public function cargarVistaContactos()
   {
+    Middleware::resolve('auth'); // Solo usuarios logueados podrán ver esta vista
     return view('/contactos.php', [
       'heading' => "Contactos",
     ]);

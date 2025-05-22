@@ -3,7 +3,7 @@
 namespace CONTROLLERS;
 
 use MODELS\User;
-use SessionHandler;
+use Core\Middleware\Middleware;
 
 class Usuario
 {
@@ -18,6 +18,7 @@ class Usuario
 
   public function cargarVistaUsuarioInfo()
   {
+    Middleware::resolve('auth'); // Solo usuarios logueados podrán ver esta vista
     return view('/usuario.php', [
       'heading' => "Usuario"
     ]);
@@ -25,6 +26,7 @@ class Usuario
 
   public function cargarVistaRegistro()
   {
+    Middleware::resolve('guest'); // Solo no usuarios logueados podrán ver esta vista
     return view('/registro_usuario.php', [
       'heading' => "Registro de Usuario",
     ]);
@@ -32,6 +34,7 @@ class Usuario
 
   public function cargarVistaReportes()
   {
+    Middleware::resolve('admin'); // Solo usuarios admin logueados podrán ver esta vista
     return view('/reportes.php', [
       'heading' => "Reportes",
     ]);
@@ -39,6 +42,7 @@ class Usuario
 
   public function cargarVistaNuevaPublicacion()
   {
+    Middleware::resolve('auth'); // Solo no usuarios logueados podrán ver esta vista
     return view('/nueva_publicacion.php', [
       'heading' => "Nueva publicación",
     ]);
@@ -46,6 +50,7 @@ class Usuario
 
   public function cargarVistaMisPublicaciones()
   {
+    Middleware::resolve('auth'); // Solo no usuarios logueados podrán ver esta vista
     return view('/mis_publicaciones.php', [
       'heading' => "Mis Publicaciones",
     ]);
@@ -53,6 +58,7 @@ class Usuario
 
   public function cargarVistaMensajes()
   {
+    Middleware::resolve('auth'); // Solo no usuarios logueados podrán ver esta vista
     return view('/mensajes.php', [
       'heading' => "Mensajes",
     ]);
