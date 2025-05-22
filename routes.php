@@ -11,7 +11,6 @@ $router->post('/usuario', [Usuario::class, 'procesarCambiosUsuario']);
 $router->post('/registro_usuario', [Usuario::class, 'procesarRegistro']);
 $router->post('/inicio_sesion', [Usuario::class, 'verificarCredenciales']);
 
-$router->get('/reportes', [Usuario::class, 'cargarVistaReportes']);
 $router->get('/nueva_publicacion', [Usuario::class, 'cargarVistaNuevaPublicacion']);
 $router->get('/mis_publicaciones', [Usuario::class, 'cargarVistaMisPublicaciones']);
 $router->get('/mensajes', [Usuario::class, 'cargarVistaMensajes']);
@@ -33,3 +32,11 @@ use CONTROLLERS\Publicacion;
 $router->get('/pagina_principal', [Publicacion::class, 'cargarVistaPaginaPrincial']);
 //API Publicaciones
 $router->get('/api/publicaciones', [Publicacion::class, 'devolverPublicaciones']);
+
+//Reporte
+use CONTROLLERS\Reporte;
+
+$router->get('/reportes', [Reporte::class, 'cargarVistaReportes']);
+//API Reportes
+$router->get('/api/reporte_usuarios', [Reporte::class, 'devolverReporteUsuarios']);
+$router->get('/api/reporte_publicaciones', [Reporte::class, 'devolverReportePublicaciones']);

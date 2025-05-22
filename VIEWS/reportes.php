@@ -19,9 +19,9 @@
             <table class="report-table">
                 <thead>
                     <tr>
-                        <th>Nombre Completo</th>
+                        <th>Avatar</th>
                         <th>Correo</th>
-                        <th>Último Ingreso</th>
+                        <th>Cantidad de Publicaciones</th>
                     </tr>
                 </thead>
                 <tbody id="usuarios-lista">
@@ -36,9 +36,11 @@
             <table class="report-table">
                 <thead>
                     <tr>
-                        <th>Título</th>
-                        <th>Usuario</th>
-                        <th>Fecha de Creación</th>
+                        <th>Avatar</th>
+                        <th>Correo</th>
+                        <th>Título Publicacion</th>
+                        <th>Fecha Publicacion</th>
+                        <th>Cantidad de Comentarios</th>
                     </tr>
                 </thead>
                 <tbody id="posts-lista">

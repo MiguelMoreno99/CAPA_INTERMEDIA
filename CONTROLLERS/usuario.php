@@ -32,14 +32,6 @@ class Usuario
     ]);
   }
 
-  public function cargarVistaReportes()
-  {
-    Middleware::resolve('admin'); // Solo usuarios admin logueados podrán ver esta vista
-    return view('/reportes.php', [
-      'heading' => "Reportes",
-    ]);
-  }
-
   public function cargarVistaNuevaPublicacion()
   {
     Middleware::resolve('auth'); // Solo no usuarios logueados podrán ver esta vista

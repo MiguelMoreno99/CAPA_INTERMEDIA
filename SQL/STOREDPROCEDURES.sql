@@ -166,3 +166,49 @@ BEGIN
     ORDER BY C.fecha_comentario ASC;
 END$$
 DELIMITER ;
+
+-- INSERT INTO Tema (nombre_tema) VALUES ('Viajes');
+-- INSERT INTO Tema (nombre_tema) VALUES ('Deportes');
+
+-- INSERT INTO Publicaciones (titulo, tema_id, descripcion, hash_correo,numero_likes)
+-- VALUES ('Mi nuevo viaje a la playa', 1, 'Les comparto fotos de mi último viaje', '2f4acf8f31f887a483c9dd33ab6051d334cfdbb98816333dee1e3a1201ea9d27',10);
+-- INSERT INTO Contenido_Media (publicacion_id, tipo, contenido)
+-- VALUES (1,'imagen',LOAD_FILE('D:/XAMPP/htdocs/CAPA_INTERMEDIA/IMG/SocializeLogo.jpg'));
+-- INSERT INTO Contenido_Media (publicacion_id, tipo, contenido)
+-- VALUES (1,'imagen',LOAD_FILE('D:/XAMPP/htdocs/CAPA_INTERMEDIA/IMG/SocializeLogo2.jpg'));
+-- INSERT INTO Contenido_Media (publicacion_id, tipo, contenido)
+-- VALUES (1,'imagen',LOAD_FILE('D:/XAMPP/htdocs/CAPA_INTERMEDIA/IMG/SocializeLogo.jpg'));
+-- INSERT INTO Contenido_Media (publicacion_id, tipo, contenido)
+-- VALUES (1,'video',LOAD_FILE('D:/XAMPP/htdocs/CAPA_INTERMEDIA/IMG/video.mp4'));
+-- INSERT INTO Comentario_Publicaciones (publicacion_id, comentario_texto, hash_correo)
+-- VALUES (1, '¡Qué padre viaje! Espero poder ir pronto.', '2f4acf8f31f887a483c9dd33ab6051d334cfdbb98816333dee1e3a1201ea9d27');
+
+-- INSERT INTO Publicaciones (titulo, tema_id, descripcion, hash_correo,numero_likes)
+-- VALUES ('Mi nuevo deporte Favorito', 2, 'Les comparto fotos de deporte', 'ec6178702dca2b7e6a29b2ce120124b822ff0cd3310b8c6003500e23dccf9420',2);
+-- INSERT INTO Contenido_Media (publicacion_id, tipo, contenido)
+-- VALUES (2,'imagen',LOAD_FILE('D:/XAMPP/htdocs/CAPA_INTERMEDIA/IMG/SocializeLogo2.jpg'));
+-- INSERT INTO Contenido_Media (publicacion_id, tipo, contenido)
+-- VALUES (2,'imagen',LOAD_FILE('D:/XAMPP/htdocs/CAPA_INTERMEDIA/IMG/SocializeLogo.jpg'));
+-- INSERT INTO Comentario_Publicaciones (publicacion_id, comentario_texto, hash_correo)
+-- VALUES (2, '¡Qué padre deporte!.', 'c27002e38eb28ea4464f7a09dbbcae616d427bddab221431fb72407caae1be2b');
+-- INSERT INTO Comentario_Publicaciones (publicacion_id, comentario_texto, hash_correo)
+-- VALUES (2, '¡Qué padre viaje! Espero poder ir pronto.', '2f4acf8f31f887a483c9dd33ab6051d334cfdbb98816333dee1e3a1201ea9d27');
+
+-- INSERT INTO Publicaciones (titulo, tema_id, descripcion, hash_correo,numero_likes)
+-- VALUES ('Otro viaje a la playa', 1, 'Les comparto fotos de mi otro viaje', '2f4acf8f31f887a483c9dd33ab6051d334cfdbb98816333dee1e3a1201ea9d27',3);
+-- INSERT INTO Contenido_Media (publicacion_id, tipo, contenido)
+-- VALUES (3,'imagen',LOAD_FILE('D:/XAMPP/htdocs/CAPA_INTERMEDIA/IMG/SocializeLogo2.jpg'));
+-- INSERT INTO Contenido_Media (publicacion_id, tipo, contenido)
+-- VALUES (3,'imagen',LOAD_FILE('D:/XAMPP/htdocs/CAPA_INTERMEDIA/IMG/SocializeLogo.jpg'));
+-- INSERT INTO Contenido_Media (publicacion_id, tipo, contenido)
+-- VALUES (3,'imagen',LOAD_FILE('D:/XAMPP/htdocs/CAPA_INTERMEDIA/IMG/SocializeLogo2.jpg'));
+-- INSERT INTO Contenido_Media (publicacion_id, tipo, contenido)
+-- VALUES (3,'video',LOAD_FILE('D:/XAMPP/htdocs/CAPA_INTERMEDIA/IMG/video.mp4'));
+-- INSERT INTO Comentario_Publicaciones (publicacion_id, comentario_texto, hash_correo)
+-- VALUES (3, '¡Qué padre viaje!', 'ec6178702dca2b7e6a29b2ce120124b822ff0cd3310b8c6003500e23dccf9420');
+-- INSERT INTO Comentario_Publicaciones (publicacion_id, comentario_texto, hash_correo)
+-- VALUES (3, '¡Espero poder ir pronto.', 'c27002e38eb28ea4464f7a09dbbcae616d427bddab221431fb72407caae1be2b');
+-- INSERT INTO Comentario_Publicaciones (publicacion_id, comentario_texto, hash_correo)
+-- VALUES (3, '¡AAAAAAAAA.', 'ec6178702dca2b7e6a29b2ce120124b822ff0cd3310b8c6003500e23dccf9420');
+
+-- SHOW VARIABLES LIKE 'max_allowed_packet';
