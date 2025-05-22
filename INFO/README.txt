@@ -21,3 +21,17 @@ DocumentRoot "C:/xampp/htdocs"
         RewriteRule ^(.*)$ index.php [QSA,L]
     </Directory>
 </VirtualHost>
+
+
+
+##ESTO ES PARA QUE SE PUEDAN SUBIR IMAGENES Y VIDEOS DE MUCHO MAS TAMAÑO
+
+Ubica o agrega esto en el archivo my.ini [mysqld]:
+
+max_allowed_packet=1024M
+
+Reinicia el servidor MySQL desde el panel de XAMPP para que los cambios surtan efecto.
+
+Verifica que el valor se actualizó correctamente con este comando en MySQL:
+
+SHOW VARIABLES LIKE 'max_allowed_packet';
