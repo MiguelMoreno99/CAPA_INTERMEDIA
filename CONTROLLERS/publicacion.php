@@ -43,6 +43,26 @@ class Publicacion
     echo json_encode($this->res);
   }
 
+  public function devolverPublicacionesFeed()
+  {
+    $this->res = $this->publicacion->obtenerTodasLasPublicacionesFeed();
+    header('Content-Type: application/json');
+    echo json_encode($this->res);
+  }
+
+  public function devolverPublicacionesFiltradasFeed()
+  {
+    $data = json_decode(file_get_contents('php://input'), true);
+    $titulo = isset($data['titulo']) && $data['titulo'] !== '' ? $data['titulo'] : null;
+    $correo = null;
+    $fecha  = isset($data['fecha'])  && $data['fecha']  !== '' ? $data['fecha']  : null;
+    $tema   = isset($data['tema'])   && $data['tema']   !== '' ? $data['tema']   : null;
+
+    $this->res = $this->publicacion->obtenerPublicacionesFiltradasFeed($titulo, $correo, $fecha, $tema);
+    header('Content-Type: application/json');
+    echo json_encode($this->res);
+  }
+
   public function toggleFavorito()
   {
     $data = json_decode(file_get_contents('php://input'), true);

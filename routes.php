@@ -31,9 +31,11 @@ use CONTROLLERS\Publicacion;
 $router->get('/pagina_principal', [Publicacion::class, 'cargarVistaPaginaPrincial']);
 //API Publicaciones
 $router->get('/api/publicaciones', [Publicacion::class, 'devolverPublicaciones']);
+$router->get('/api/publicacionesFeed', [Publicacion::class, 'devolverPublicacionesFeed']);
 $router->post('/api/toggle_favorito', [Publicacion::class, 'toggleFavorito']);
 $router->post('/api/crear_comentario', [Publicacion::class, 'comentarPublicacion']);
 $router->post('/api/publicaciones_filtradas', [Publicacion::class, 'devolverPublicacionesFiltradas']);
+$router->post('/api/publicaciones_filtradasFeed', [Publicacion::class, 'devolverPublicacionesFiltradasFeed']);
 
 //Reporte
 use CONTROLLERS\Reporte;

@@ -216,7 +216,6 @@ DELIMITER ;
 -- SHOW VARIABLES LIKE 'max_allowed_packet';
 
 DELIMITER $$
-
 CREATE PROCEDURE `toggleFavorito` (
     IN p_hash_usuario VARCHAR(255),
     IN p_publicacion_id TINYINT
@@ -252,11 +251,9 @@ BEGIN
     FROM Publicaciones
     WHERE id_publicaciones = p_publicacion_id;
 END$$
-
 DELIMITER ;
 
 DELIMITER $$
-
 CREATE PROCEDURE `esFavorito` (
     IN p_hash_usuario VARCHAR(255),
     IN p_publicacion_id TINYINT
@@ -268,11 +265,9 @@ BEGIN
         WHERE hash_usuario = p_hash_usuario AND publicacion_id = p_publicacion_id
     ) AS es_favorito;
 END$$
-
 DELIMITER ;
 
 DELIMITER $$
-
 CREATE PROCEDURE `crearComentario` (
     IN p_hash_usuario VARCHAR(255),
     IN p_publicacion_id INT,
@@ -282,11 +277,9 @@ BEGIN
     INSERT INTO Comentario_Publicaciones (hash_correo, publicacion_id, comentario_texto)
     VALUES (p_hash_usuario, p_publicacion_id, p_contenido);
 END$$
-
 DELIMITER ;
 
 DELIMITER $$
-
 CREATE PROCEDURE `obtenerPublicacionesFiltradas`(
     IN p_titulo VARCHAR(255),
     IN p_correo VARCHAR(255),
@@ -313,5 +306,57 @@ BEGIN
         AND (p_tema IS NULL OR T.nombre_tema = p_tema)
     ORDER BY P.fecha_publicacion DESC;
 END$$
+DELIMITER ;
 
+DELIMITER $$
+CREATE PROCEDURE `obtenerPublicacionesFiltradasFeed`(
+    IN p_titulo VARCHAR(255),
+    IN p_correo VARCHAR(255),
+    IN p_fecha DATE,
+    IN p_tema VARCHAR(50),
+    IN p_hash_correo VARCHAR(255)
+)
+BEGIN
+    SELECT 
+        P.id_publicaciones,
+        P.titulo,
+        P.descripcion,
+        P.hash_correo,
+        U.correo AS autor,
+        P.numero_likes,
+        P.fecha_publicacion,
+        T.nombre_tema AS tema
+    FROM Publicaciones P
+    LEFT JOIN Usuarios U ON P.hash_correo = U.hash_correo
+    LEFT JOIN Tema T ON P.tema_id = T.id_tema
+    WHERE
+        (p_titulo IS NULL OR P.titulo LIKE CONCAT('%', p_titulo, '%'))
+        AND (p_correo IS NULL OR U.correo LIKE CONCAT('%', p_correo, '%'))
+        AND (p_fecha IS NULL OR DATE(P.fecha_publicacion) = p_fecha)
+        AND (p_tema IS NULL OR T.nombre_tema = p_tema)
+        AND (p_hash_correo IS NULL OR P.hash_correo = p_hash_correo)
+    ORDER BY P.fecha_publicacion DESC;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE `obtenerPublicacionesFeed`(
+    IN p_hash_correo VARCHAR(255)
+)
+BEGIN
+    SELECT 
+        P.id_publicaciones,
+        P.titulo,
+        P.descripcion,
+        P.hash_correo,
+        U.correo AS autor,
+        P.numero_likes,
+        P.fecha_publicacion,
+        T.nombre_tema AS tema
+    FROM Publicaciones P
+    LEFT JOIN Usuarios U ON P.hash_correo = U.hash_correo
+    LEFT JOIN Tema T ON P.tema_id = T.id_tema
+    WHERE (p_hash_correo IS NULL OR P.hash_correo = p_hash_correo)
+    ORDER BY P.fecha_publicacion DESC;
+END$$
 DELIMITER ;
