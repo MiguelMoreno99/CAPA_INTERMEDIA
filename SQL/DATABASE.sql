@@ -37,7 +37,7 @@ CREATE TABLE Contenido_Media (
 CREATE TABLE Comentario_Publicaciones (
     id_comentario_publicacion tinyint AUTO_INCREMENT PRIMARY KEY COMMENT 'Identificador unico de cada comentario',
     publicacion_id TINYINT COMMENT 'Referencia a la publicacion de la que pertenece',
-    contenido LONGBLOB NOT NULL COMMENT 'Almacena el texto del comentario',
+    comentario_texto VARCHAR(255) NOT NULL COMMENT 'Almacena el texto del comentario',
     hash_correo VARCHAR(255) COMMENT 'El usuario que creo el comentario',
     fecha_comentario DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Fecha y hora en la que se hizo el comentario',
     FOREIGN KEY (publicacion_id) REFERENCES Publicaciones(id_publicaciones) ON DELETE CASCADE,

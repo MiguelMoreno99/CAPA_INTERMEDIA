@@ -14,7 +14,6 @@ $router->post('/inicio_sesion', [Usuario::class, 'verificarCredenciales']);
 $router->get('/reportes', [Usuario::class, 'cargarVistaReportes']);
 $router->get('/nueva_publicacion', [Usuario::class, 'cargarVistaNuevaPublicacion']);
 $router->get('/mis_publicaciones', [Usuario::class, 'cargarVistaMisPublicaciones']);
-$router->get('/pagina_principal', [Usuario::class, 'cargarVistaPaginaPrincial']);
 $router->get('/mensajes', [Usuario::class, 'cargarVistaMensajes']);
 
 
@@ -27,3 +26,10 @@ $router->get('/api/contactos_disponibles', [Contacto::class, 'devolverContactosD
 $router->get('/api/contactos_agregados', [Contacto::class, 'devolverContactosUsuario']);
 $router->post('/api/agregar_contacto', [Contacto::class, 'agregarContacto']);
 $router->post('/api/eliminar_contacto', [Contacto::class, 'eliminarContacto']);
+
+// Publicacion
+use CONTROLLERS\Publicacion;
+
+$router->get('/pagina_principal', [Publicacion::class, 'cargarVistaPaginaPrincial']);
+//API Publicaciones
+$router->get('/api/publicaciones', [Publicacion::class, 'devolverPublicaciones']);

@@ -51,13 +51,6 @@ class Usuario
     ]);
   }
 
-  public function cargarVistaPaginaPrincial()
-  {
-    return view('/pagina_principal.php', [
-      'heading' => "Página Principal",
-    ]);
-  }
-
   public function cargarVistaMensajes()
   {
     return view('/mensajes.php', [

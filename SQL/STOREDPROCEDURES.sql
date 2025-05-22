@@ -116,3 +116,53 @@ BEGIN
     WHERE hash_usuario = p_hash_usuario AND hash_contacto = p_hash_contacto;
 END$$
 DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE `obtenerPublicaciones`()
+BEGIN
+    SELECT 
+        P.id_publicaciones,
+        P.titulo,
+        P.descripcion,
+        P.hash_correo,
+        U.correo AS autor,
+        P.numero_likes,
+        P.fecha_publicacion,
+        T.nombre_tema AS tema
+    FROM Publicaciones P
+    LEFT JOIN Usuarios U ON P.hash_correo = U.hash_correo
+    LEFT JOIN Tema T ON P.tema_id = T.id_tema
+    ORDER BY P.fecha_publicacion DESC;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE `obtenerMediaPorPublicacion`(IN pub_id TINYINT)
+BEGIN
+    SELECT 
+        tipo,
+        CONCAT('data:', 
+               CASE tipo
+                   WHEN 'imagen' THEN 'image/jpeg'
+                   WHEN 'video' THEN 'video/mp4'
+               END,
+               ';base64,', TO_BASE64(contenido)) AS url
+    FROM Contenido_Media
+    WHERE publicacion_id = pub_id;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE `obtenerComentariosPorPublicacion`(IN pub_id TINYINT)
+BEGIN
+    SELECT 
+        C.hash_correo,
+        U.correo AS correo,
+        C.comentario_texto,
+        C.fecha_comentario
+    FROM Comentario_Publicaciones C
+    LEFT JOIN Usuarios U ON C.hash_correo = U.hash_correo
+    WHERE C.publicacion_id = pub_id
+    ORDER BY C.fecha_comentario ASC;
+END$$
+DELIMITER ;

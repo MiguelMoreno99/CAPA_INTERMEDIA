@@ -21,9 +21,7 @@ class Database
     public function query($query, $params = [])
     {
         $this->statement = $this->connection->prepare($query);
-
         $this->statement->execute($params);
-
         return $this;
     }
 
@@ -46,5 +44,13 @@ class Database
         }
 
         return $result;
+    }
+
+    public function nextRowset()
+    {
+        if ($this->statement) {
+            return $this->statement->nextRowset();
+        }
+        return false;
     }
 }

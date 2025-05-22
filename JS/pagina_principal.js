@@ -1,15 +1,16 @@
-document.addEventListener("DOMContentLoaded", function () {
-  const posts = document.querySelectorAll(".post");
+const posts = document.querySelectorAll(".post");
+let publicacionesDisponibles = [];
 
-  posts.forEach((post, index) => {
-    post.dataset.currentSlide = 0; // Inicializa cada post con su propio índice de slide
+obtenerPublicaciones();
 
-    const prevBtn = post.querySelector(".prev");
-    const nextBtn = post.querySelector(".next");
+posts.forEach((post, index) => {
+  post.dataset.currentSlide = 0; // Inicializa cada post con su propio índice de slide
 
-    prevBtn.addEventListener("click", () => changeSlide(-1, post));
-    nextBtn.addEventListener("click", () => changeSlide(1, post));
-  });
+  const prevBtn = post.querySelector(".prev");
+  const nextBtn = post.querySelector(".next");
+
+  prevBtn.addEventListener("click", () => changeSlide(-1, post));
+  nextBtn.addEventListener("click", () => changeSlide(1, post));
 });
 
 function changeSlide(direction, post) {
@@ -28,4 +29,17 @@ function changeSlide(direction, post) {
   post.dataset.currentSlide = currentSlide; // Actualiza el slide actual del post
   const translateValue = -currentSlide * 100 + "%";
   carouselContainer.style.transform = "translateX(" + translateValue + ")";
+}
+
+async function obtenerPublicaciones() {
+  try {
+    const response = await fetch('/api/publicaciones');
+    if (!response.ok) throw new Error('Error al obtener contactos publicaciones');
+
+    publicacionesDisponibles = await response.json();
+    console.log(publicacionesDisponibles);
+
+  } catch (error) {
+    console.error(error);
+  }
 }
