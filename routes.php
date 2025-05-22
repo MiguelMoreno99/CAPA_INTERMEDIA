@@ -32,6 +32,7 @@ use CONTROLLERS\Publicacion;
 $router->get('/pagina_principal', [Publicacion::class, 'cargarVistaPaginaPrincial']);
 //API Publicaciones
 $router->get('/api/publicaciones', [Publicacion::class, 'devolverPublicaciones']);
+$router->post('/api/toggle_favorito', [Publicacion::class, 'toggleFavorito']);
 
 //Reporte
 use CONTROLLERS\Reporte;

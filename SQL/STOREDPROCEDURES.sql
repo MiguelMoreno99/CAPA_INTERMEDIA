@@ -214,3 +214,59 @@ DELIMITER ;
 -- VALUES (3, '¡AAAAAAAAA.', 'ec6178702dca2b7e6a29b2ce120124b822ff0cd3310b8c6003500e23dccf9420');
 
 -- SHOW VARIABLES LIKE 'max_allowed_packet';
+
+DELIMITER $$
+
+CREATE PROCEDURE `toggleFavorito` (
+    IN p_hash_usuario VARCHAR(255),
+    IN p_publicacion_id TINYINT
+)
+BEGIN
+    -- Verificar si ya está en favoritos
+    IF EXISTS (
+        SELECT 1
+        FROM Favoritos
+        WHERE hash_usuario = p_hash_usuario AND publicacion_id = p_publicacion_id
+    ) THEN
+        -- Si ya existe, eliminarlo (quitar favorito)
+        DELETE FROM Favoritos
+        WHERE hash_usuario = p_hash_usuario AND publicacion_id = p_publicacion_id;
+
+         -- Restar 1 a la cantidad de favoritos
+        UPDATE Publicaciones
+        SET numero_likes = GREATEST(0, numero_likes - 1)
+        WHERE id_publicaciones = p_publicacion_id;
+    ELSE
+        -- Si no existe, insertarlo (marcar como favorito)
+        INSERT INTO Favoritos (hash_usuario, publicacion_id)
+        VALUES (p_hash_usuario, p_publicacion_id);
+
+        -- Sumar 1 a la cantidad de favoritos
+        UPDATE Publicaciones
+        SET numero_likes = numero_likes + 1
+        WHERE id_publicaciones = p_publicacion_id;
+    END IF;
+
+        -- Devolver el nuevo número de likes
+    SELECT numero_likes
+    FROM Publicaciones
+    WHERE id_publicaciones = p_publicacion_id;
+END$$
+
+DELIMITER ;
+
+DELIMITER $$
+
+CREATE PROCEDURE `esFavorito` (
+    IN p_hash_usuario VARCHAR(255),
+    IN p_publicacion_id TINYINT
+)
+BEGIN
+    SELECT EXISTS (
+        SELECT 1
+        FROM Favoritos
+        WHERE hash_usuario = p_hash_usuario AND publicacion_id = p_publicacion_id
+    ) AS es_favorito;
+END$$
+
+DELIMITER ;

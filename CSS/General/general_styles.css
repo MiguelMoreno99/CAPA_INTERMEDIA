@@ -72,3 +72,9 @@ textarea {
 h2 {
   margin-bottom: 20px;
 }
+
+.like-btn.liked {
+  background-color: #ffc107b2;
+  color: black;
+  font-weight: bold;
+}

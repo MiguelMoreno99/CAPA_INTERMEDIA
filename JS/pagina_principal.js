@@ -1,4 +1,5 @@
 let publicacionesDisponibles = [];
+let postId = 0;
 
 document.addEventListener('DOMContentLoaded', async () => {
   await obtenerPublicaciones();
@@ -95,9 +96,13 @@ async function obtenerPublicaciones() {
           </div>
 
           <div class="post-footer">
-            <button class="btn like-btn">👍 Me gusta <span>${pub.numero_likes}</span></button>
+            <button class="btn like-btn ${pub.es_favorito ? 'liked' : ''}" 
+                    data-id="${pub.id_publicaciones}">
+              👍 Me gusta <span>${pub.numero_likes}</span>
+            </button>
             <button class="btn comment-btn">💬 Comentar</button>
           </div>
+
           <div class="comments-section">
             <input type="text" placeholder="Escribe un comentario..." class="comment-input" />
             ${comentariosHTML}
@@ -113,3 +118,33 @@ async function obtenerPublicaciones() {
     console.error(error);
   }
 }
+
+document.addEventListener('click', async (e) => {
+  if (e.target.closest('.like-btn')) {
+    const btn = e.target.closest('.like-btn');
+    postId = btn.dataset.id;
+
+    try {
+      const response = await fetch('/api/toggle_favorito', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ id_publicacion: postId })
+      });
+
+      if (!response.ok) throw new Error("Error al marcar favorito");
+      const data = await response.json();
+
+      // Alternar la clase visual
+      btn.classList.toggle('liked');
+
+      // Actualizar contador de likes
+      const span = btn.querySelector('span');
+      span.textContent = data.numero_likes;
+
+    } catch (error) {
+      console.error(error);
+    }
+  }
+});
