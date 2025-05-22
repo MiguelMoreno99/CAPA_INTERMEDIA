@@ -30,6 +30,19 @@ class Publicacion
     echo json_encode($this->res);
   }
 
+  public function devolverPublicacionesFiltradas()
+  {
+    $data = json_decode(file_get_contents('php://input'), true);
+    $titulo = isset($data['titulo']) && $data['titulo'] !== '' ? $data['titulo'] : null;
+    $correo = isset($data['correo']) && $data['correo'] !== '' ? $data['correo'] : null;
+    $fecha  = isset($data['fecha'])  && $data['fecha']  !== '' ? $data['fecha']  : null;
+    $tema   = isset($data['tema'])   && $data['tema']   !== '' ? $data['tema']   : null;
+
+    $this->res = $this->publicacion->obtenerPublicacionesFiltradas($titulo, $correo, $fecha, $tema);
+    header('Content-Type: application/json');
+    echo json_encode($this->res);
+  }
+
   public function toggleFavorito()
   {
     $data = json_decode(file_get_contents('php://input'), true);
@@ -44,5 +57,29 @@ class Publicacion
     // Devuelve la respuesta como JSON
     header('Content-Type: application/json');
     echo json_encode($this->res);
+  }
+
+  public function comentarPublicacion()
+  {
+    $data = json_decode(file_get_contents('php://input'), true);
+    $comentario = trim($data['comentario'] ?? '');
+    $post_id = $data['post_id'] ?? null;
+    $usuario = $_SESSION['usuario']['hash_correo'] ?? null;
+
+    if (!$comentario || !$post_id || !$usuario) {
+      echo json_encode(['exito' => false, 'mensaje' => 'Datos inválidos']);
+      return;
+    }
+
+    try {
+      $this->res = $this->publicacion->enviarComentario(
+        $usuario,
+        $post_id,
+        $comentario
+      );
+      echo json_encode(['exito' => true]);
+    } catch (\Exception $e) {
+      echo json_encode(['exito' => false, 'mensaje' => 'Error al enviar y guardar comentario']);
+    }
   }
 }

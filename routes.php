@@ -13,7 +13,6 @@ $router->post('/inicio_sesion', [Usuario::class, 'verificarCredenciales']);
 
 $router->get('/nueva_publicacion', [Usuario::class, 'cargarVistaNuevaPublicacion']);
 $router->get('/mis_publicaciones', [Usuario::class, 'cargarVistaMisPublicaciones']);
-$router->get('/mensajes', [Usuario::class, 'cargarVistaMensajes']);
 
 
 // Contacto
@@ -33,6 +32,8 @@ $router->get('/pagina_principal', [Publicacion::class, 'cargarVistaPaginaPrincia
 //API Publicaciones
 $router->get('/api/publicaciones', [Publicacion::class, 'devolverPublicaciones']);
 $router->post('/api/toggle_favorito', [Publicacion::class, 'toggleFavorito']);
+$router->post('/api/crear_comentario', [Publicacion::class, 'comentarPublicacion']);
+$router->post('/api/publicaciones_filtradas', [Publicacion::class, 'devolverPublicacionesFiltradas']);
 
 //Reporte
 use CONTROLLERS\Reporte;
@@ -41,3 +42,7 @@ $router->get('/reportes', [Reporte::class, 'cargarVistaReportes']);
 //API Reportes
 $router->get('/api/reporte_usuarios', [Reporte::class, 'devolverReporteUsuarios']);
 $router->get('/api/reporte_publicaciones', [Reporte::class, 'devolverReportePublicaciones']);
+
+//PENDIENTE HACER MENSAJES
+
+$router->get('/mensajes', [Usuario::class, 'cargarVistaMensajes']);

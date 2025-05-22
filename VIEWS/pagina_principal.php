@@ -26,7 +26,7 @@
             <input type="text" class="search-input" placeholder="Buscar por título" />
 
             <!-- Buscar por usuario -->
-            <input type="text" class="search-input" placeholder="Buscar por usuario" />
+            <input type="text" class="search-input" placeholder="Buscar por correo" />
 
             <!-- Filtrar por fecha -->
             <label for="filter-date" class="filter-label">Filtrar por fecha de publicación:</label>
@@ -36,10 +36,10 @@
             <label for="filter-topic" class="filter-label">Filtrar por tema:</label>
             <select id="filter-topic" class="filter-topic">
                 <option value="">Seleccionar tema</option>
-                <option value="viajes">Viajes</option>
-                <option value="tecnologia">Tecnología</option>
-                <option value="cultura">Cultura</option>
-                <option value="deportes">Deportes</option>
+                <option value="Viajes">Viajes</option>
+                <option value="Tecnología">Tecnología</option>
+                <option value="Cultura">Cultura</option>
+                <option value="Deportes">Deportes</option>
             </select>
 
             <!-- Botón de Filtrar -->

@@ -78,3 +78,16 @@ h2 {
   color: black;
   font-weight: bold;
 }
+
+.comentario {
+  margin-top: 5px;
+  padding: 5px;
+  background-color: #f5f5f55d;
+  border-radius: 5px;
+}
+
+.fecha-comentario {
+  color: #888;
+  font-size: 0.8em;
+  margin-left: 5px;
+}
