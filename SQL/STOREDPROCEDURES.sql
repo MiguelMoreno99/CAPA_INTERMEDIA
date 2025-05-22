@@ -169,6 +169,8 @@ DELIMITER ;
 
 -- INSERT INTO Tema (nombre_tema) VALUES ('Viajes');
 -- INSERT INTO Tema (nombre_tema) VALUES ('Deportes');
+-- INSERT INTO Tema (nombre_tema) VALUES ('Tecnología');
+-- INSERT INTO Tema (nombre_tema) VALUES ('Cultura');
 
 -- INSERT INTO Publicaciones (titulo, tema_id, descripcion, hash_correo,numero_likes)
 -- VALUES ('Mi nuevo viaje a la playa', 1, 'Les comparto fotos de mi último viaje', '2f4acf8f31f887a483c9dd33ab6051d334cfdbb98816333dee1e3a1201ea9d27',10);
