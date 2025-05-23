@@ -33,8 +33,8 @@
             </div>
 
             <div class="chat-messages">
-                <div class="message received">Ejemplo 1</div>
-                <div class="message sent">Ejemplo 2</div>
+                <div class="message received"></div>
+                <div class="message sent"></div>
             </div>
 
             <div class="message-input">

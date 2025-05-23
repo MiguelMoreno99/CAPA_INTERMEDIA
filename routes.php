@@ -46,5 +46,6 @@ $router->get('/api/reporte_usuarios', [Reporte::class, 'devolverReporteUsuarios'
 $router->get('/api/reporte_publicaciones', [Reporte::class, 'devolverReportePublicaciones']);
 
 //PENDIENTE HACER MENSAJES
-
+use CONTROLLERS\ChatsController;
 $router->get('/mensajes', [Usuario::class, 'cargarVistaMensajes']);
+$router->get('/api/cargar_mensajes', [ChatsController::class, 'chat_history']);

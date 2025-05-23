@@ -7,12 +7,7 @@ const messageBox = document.getElementById("message-box");
 const sendBtn = document.getElementById("btn send-btn");
 const chatMessages = document.querySelector(".chat-messages");
 
-//const emisor = window.chatConfig.emisor;
 let contactosAgregados = [];
-
-/* document.addEventListener("DOMContentLoaded", () => {
-  obtenerContactosAgregados();
-}); */
 
 document.addEventListener("DOMContentLoaded", () => {
   // 1. Connect to WebSocket
@@ -49,9 +44,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // 2. Set selected receptor
 function selectReceptor(hash_correo, correo) {
+  if (selectedReceptor === correo) return;
   selectedReceptor = hash_correo;
   const chatUsername = document.getElementById("chat-username");
   chatUsername.textContent = correo;
+   
+  chatMessages.innerHTML = "";
+  fetchMessagesForChat(emisor, hash_correo); 
+  
 }
 
 // 3. Add message to UI
@@ -75,6 +75,19 @@ async function obtenerContactosAgregados() {
   }
 }
 
+async function fetchMessagesForChat(emisor, receptor) {
+ try{
+    const response = await fetch(`/api/cargar_mensajes?emisor=${emisor}&receptor=${receptor}`);
+    const history = await response.json();
+    console.log(history);
+    history.forEach(msg => {
+    appendMessage(msg.texto, msg.emisor === emisor ? 'sent' : 'received');
+  });
+ }catch(error){
+    console.error("Fetch error:", error);
+ }
+ 
+}
 
 function renderizarContactos() {
   chatList.innerHTML = "";

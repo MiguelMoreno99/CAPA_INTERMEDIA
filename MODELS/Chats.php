@@ -23,8 +23,8 @@ class Chats extends Model {
     }
     
     public function getConversation($user1, $user2) {
-        $query = "CALL obtener_mensajes(:hash_emisor_, :hash_receptor_);";
-                 
+      //echo "estoy dentro de mi MODEL CHATS";
+        $query = "CALL obtener_mensajes(:hash_emisor, :hash_receptor);";       
         try {
             $params = [
                'hash_emisor' => $user1,
@@ -32,10 +32,10 @@ class Chats extends Model {
 
             ];
             
-             $this->db->query($query, $params);
+            $this->db->query($query, $params);
             return $this->db->get();
         } catch (\Exception $e) {
-      echo "Error al traer Contactos Disponibles: " . $e->getMessage();
+        echo "Error al traer mensajes Disponibles: " . $e->getMessage();
       }
       }
 }
