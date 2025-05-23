@@ -3,17 +3,15 @@
 use CONTROLLERS\Usuario;
 
 $router->get('/', [Usuario::class, 'cargarVistaLogin']);
-$router->get('/inicio_sesion', [Usuario::class, 'cargarVistaLogin']);
+
 $router->get('/usuario', [Usuario::class, 'cargarVistaUsuarioInfo']);
-$router->get('/registro_usuario', [Usuario::class, 'cargarVistaRegistro']);
-
 $router->post('/usuario', [Usuario::class, 'procesarCambiosUsuario']);
+
+$router->get('/registro_usuario', [Usuario::class, 'cargarVistaRegistro']);
 $router->post('/registro_usuario', [Usuario::class, 'procesarRegistro']);
+
+$router->get('/inicio_sesion', [Usuario::class, 'cargarVistaLogin']);
 $router->post('/inicio_sesion', [Usuario::class, 'verificarCredenciales']);
-
-$router->get('/nueva_publicacion', [Usuario::class, 'cargarVistaNuevaPublicacion']);
-$router->get('/mis_publicaciones', [Usuario::class, 'cargarVistaMisPublicaciones']);
-
 
 // Contacto
 use CONTROLLERS\Contacto;
@@ -29,6 +27,10 @@ $router->post('/api/eliminar_contacto', [Contacto::class, 'eliminarContacto']);
 use CONTROLLERS\Publicacion;
 
 $router->get('/pagina_principal', [Publicacion::class, 'cargarVistaPaginaPrincial']);
+
+$router->get('/nueva_publicacion', [Publicacion::class, 'cargarVistaNuevaPublicacion']);
+$router->get('/mis_publicaciones', [Publicacion::class, 'cargarVistaMisPublicaciones']);
+$router->post('/mis_publicaciones', [Publicacion::class, 'procesarNuevaPublicacion']);
 //API Publicaciones
 $router->get('/api/publicaciones', [Publicacion::class, 'devolverPublicaciones']);
 $router->get('/api/publicacionesFeed', [Publicacion::class, 'devolverPublicacionesFeed']);

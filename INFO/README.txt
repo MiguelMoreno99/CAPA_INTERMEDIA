@@ -25,13 +25,12 @@ DocumentRoot "C:/xampp/htdocs"
 
 
 ##ESTO ES PARA QUE SE PUEDAN SUBIR IMAGENES Y VIDEOS DE MUCHO MAS TAMAÑO
+Ubica php.ini
 
-Ubica o agrega esto en el archivo my.ini [mysqld]:
-
-max_allowed_packet=1024M
+upload_max_filesize = 200M
+post_max_size = 200M
+max_execution_time = 300
+max_input_time = 300
+memory_limit = 512M
 
 Reinicia el servidor MySQL desde el panel de XAMPP para que los cambios surtan efecto.
-
-Verifica que el valor se actualizó correctamente con este comando en MySQL:
-
-SHOW VARIABLES LIKE 'max_allowed_packet';
