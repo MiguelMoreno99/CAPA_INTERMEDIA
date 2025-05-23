@@ -5,11 +5,11 @@ CREATE VIEW vista_reporte_usuarios AS
 SELECT 
     u.hash_correo,
     u.correo,
-    COUNT(p.id) AS cantidad_publicaciones
+    COUNT(p.id_publicaciones) AS cantidad_publicaciones
 FROM 
-    Usuario u
+    Usuarios u
 LEFT JOIN 
-    Publicacion p ON u.hash_correo = p.hash_correo
+    Publicaciones p ON u.hash_correo = p.hash_correo
 GROUP BY 
     u.hash_correo, u.correo;
     $$
@@ -22,15 +22,15 @@ SELECT
     u.hash_correo,
     u.correo,
     p.fecha_publicacion,
-    COUNT(c.id) AS cantidad_comentarios
+    COUNT(c.id_comentario_publicacion) AS cantidad_comentarios
 FROM 
-    Publicacion p
+    Publicaciones p
 JOIN 
-    Usuario u ON p.hash_correo = u.hash_correo
+    Usuarios u ON p.hash_correo = u.hash_correo
 LEFT JOIN 
-    Comentario c ON p.id = c.publicacion_id
+    Comentario_publicaciones c ON p.id_publicaciones = c.publicacion_id
 GROUP BY 
-    p.id, p.titulo, u.hash_correo, u.correo, p.fecha_publicacion;
+    p.id_publicaciones, p.titulo, u.hash_correo, u.correo, p.fecha_publicacion;
         $$
 DELIMITER ;
 
