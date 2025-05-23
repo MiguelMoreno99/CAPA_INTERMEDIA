@@ -1,11 +1,66 @@
 // Script temporal para el boton de cifrado
 const chatList = document.getElementById("chat-list");
+let socket;
+let selectedReceptor = null;
+const chatUsername = document.getElementById("chat-username");
+const messageBox = document.getElementById("message-box");
+const sendBtn = document.getElementById("btn send-btn");
+const chatMessages = document.querySelector(".chat-messages");
 
+//const emisor = window.chatConfig.emisor;
 let contactosAgregados = [];
 
-document.addEventListener("DOMContentLoaded", () => {
+/* document.addEventListener("DOMContentLoaded", () => {
   obtenerContactosAgregados();
+}); */
+
+document.addEventListener("DOMContentLoaded", () => {
+  // 1. Connect to WebSocket
+   obtenerContactosAgregados();
+  socket = new WebSocket("ws://localhost:8080");
+
+  socket.onmessage = (event) => {
+    const data = JSON.parse(event.data);
+    if (data.type === "chat" && data.data.receptor === emisor) {
+      appendMessage(data.data.texto, "received");
+    }
+  };
+
+  sendBtn.addEventListener("click", () => {
+    console.log(emisor);
+    console.log(selectedReceptor);
+    const texto = messageBox.value.trim();
+    if (!texto || !selectedReceptor) return;
+
+    const message = {
+      type: "chat",
+      data: {
+        emisor: emisor,
+        receptor: selectedReceptor,
+        texto: texto,
+      },
+    };
+
+    socket.send(JSON.stringify(message));
+    appendMessage(texto, "sent");
+    messageBox.value = "";
+  });
 });
+
+// 2. Set selected receptor
+function selectReceptor(hash_correo, correo) {
+  selectedReceptor = hash_correo;
+  const chatUsername = document.getElementById("chat-username");
+  chatUsername.textContent = correo;
+}
+
+// 3. Add message to UI
+function appendMessage(text, type) {
+  const div = document.createElement("div");
+  div.className = `message ${type}`;
+  div.textContent = text;
+  chatMessages.appendChild(div);
+}
 
 
 async function obtenerContactosAgregados() {
@@ -41,8 +96,7 @@ function renderizarContactos() {
     notification.className = "messageNotification";
     
     li.addEventListener("click", () => {
-    const chatUsername = document.getElementById("chat-username");
-    chatUsername.textContent = contacto.correo;
+    selectReceptor(contacto.hash_correo, contacto.correo);
     });
 
     li.appendChild(notification);

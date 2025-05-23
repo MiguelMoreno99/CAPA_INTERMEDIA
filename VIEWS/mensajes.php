@@ -45,6 +45,9 @@
     </div>
 
     <?php require 'TEMPLATES/footer.php'; ?>
+    <script>
+        const emisor = "<?php echo htmlspecialchars($_SESSION['usuario']['hash_correo'], ENT_QUOTES); ?>";
+    </script>
     <script src="JS/mensajes.js"></script>
 </body>
 
