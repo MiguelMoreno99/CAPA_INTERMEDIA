@@ -23,6 +23,22 @@ class Publicacion
     ]);
   }
 
+  public function cargarVistaNuevaPublicacion()
+  {
+    Middleware::resolve('auth'); // Solo no usuarios logueados podrán ver esta vista
+    return view('/nueva_publicacion.php', [
+      'heading' => "Nueva publicación",
+    ]);
+  }
+
+  public function cargarVistaMisPublicaciones()
+  {
+    Middleware::resolve('auth'); // Solo no usuarios logueados podrán ver esta vista
+    return view('/mis_publicaciones.php', [
+      'heading' => "Mis Publicaciones",
+    ]);
+  }
+
   public function devolverPublicaciones()
   {
     $this->res = $this->publicacion->obtenerTodasLasPublicaciones();
@@ -100,6 +116,44 @@ class Publicacion
       echo json_encode(['exito' => true]);
     } catch (\Exception $e) {
       echo json_encode(['exito' => false, 'mensaje' => 'Error al enviar y guardar comentario']);
+    }
+  }
+
+  public function procesarNuevaPublicacion()
+  {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+      $titulo = $_POST['titulo'] ?? '';
+      $tema = $_POST['tema'] ?? '';
+      $descripcion = $_POST['descripcion'] ?? '';
+      $hash_correo = $_SESSION['usuario']['hash_correo'] ?? '';
+
+      $this->res = $this->publicacion->crearPublicacion($titulo, $tema, $descripcion, $hash_correo);
+      $id_publicacion = $this->res['id_publicacion'] ?? null;
+
+      // Procesar archivos multimedia
+      $archivos = $_FILES['media'];
+      if (!empty($archivos['tmp_name']) && is_array($archivos['tmp_name'])) {
+        for ($i = 0; $i < count($archivos['tmp_name']); $i++) {
+          if ($archivos['error'][$i] === UPLOAD_ERR_OK) {
+            $tmpName = $archivos['tmp_name'][$i];
+            $nombreOriginal = basename($archivos['name'][$i]);
+            $nombreArchivo = uniqid() . '_' . $nombreOriginal;
+            $rutaDestino = 'UserAssets/' . $nombreArchivo;
+
+            // Mover archivo a carpeta
+            if (move_uploaded_file($tmpName, $rutaDestino)) {
+              // Detectar tipo
+              $tipoMime = mime_content_type($rutaDestino);
+              $tipo = str_starts_with($tipoMime, 'image/') ? 'imagen' : 'video';
+
+              // Insertar ruta en la base de datos
+              $this->publicacion->cargarContenidoMultimedia($id_publicacion, $tipo, $rutaDestino);
+            }
+          }
+        }
+      }
+      $this->cargarVistaMisPublicaciones();
     }
   }
 }

@@ -30,7 +30,7 @@ CREATE TABLE Contenido_Media (
     id_publicacion_media tinyint AUTO_INCREMENT PRIMARY KEY COMMENT 'Identificador unico de cada archivo de media',
     publicacion_id TINYINT COMMENT 'Referencia a la publicacion de la que pertenece',
     tipo ENUM('imagen', 'video') NOT NULL COMMENT 'Que tipo de archivo es ',
-    contenido LONGBLOB NOT NULL COMMENT 'Almacena en formato binario el archivo de multimedia',
+    url_media MEDIUMTEXT NOT NULL COMMENT 'Almacena url del archivo de multimedia',
     FOREIGN KEY (publicacion_id) REFERENCES Publicaciones(id_publicaciones) ON DELETE CASCADE
 ) COMMENT='Almacena el contenido multimedia de las publicaciones';
 

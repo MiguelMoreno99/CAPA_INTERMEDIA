@@ -282,4 +282,36 @@ class Publication extends Model
       echo "Error al crear el comentario: " . $e->getMessage();
     }
   }
+
+  public function crearPublicacion($titulo, $tema, $descripcion, $hash_correo)
+  {
+    $query = "CALL insertarPublicacion(:titulo, :tema, :descripcion, :hash_correo)";
+    $params = [
+      'titulo' => $titulo,
+      'tema' => $tema,
+      'descripcion' => $descripcion,
+      'hash_correo' => $hash_correo
+    ];
+    try {
+      $this->db->query($query, $params);
+      return $this->db->find();
+    } catch (\Exception $e) {
+      echo "Error al crear publicacion y traer id: " . $e->getMessage();
+    }
+  }
+
+  public function cargarContenidoMultimedia($publicacion_id, $tipo, $ruta_archivo)
+  {
+    $query = "CALL insertarContenidoMedia(:publicacion_id, :tipo, :ruta_archivo)";
+    $params = [
+      'publicacion_id' => $publicacion_id,
+      'tipo' => $tipo,
+      'ruta_archivo' => $ruta_archivo
+    ];
+    try {
+      $this->db->query($query, $params);
+    } catch (\Exception $e) {
+      echo "Error al crear publicacion y traer id: " . $ruta_archivo . $publicacion_id . $tipo . $e->getMessage();
+    }
+  }
 }
