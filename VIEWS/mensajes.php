@@ -20,20 +20,15 @@
                 <button class="btn btn-search">Buscar</button>
             </div>
 
-            <ul class="chat-list">
-                <li class="chat-item">Usuario 1</li>
-                <li class="chat-item">Usuario 2</li>
-                <li class="chat-item">
-                    Usuario 3
-                    <label class="messageNotification"></label>
-                </li>
+            <ul id="chat-list" class="chat-list">
+              
             </ul>
         </div>
 
         <div class="chat-window">
             <div class="chat-header">
                 <div class="user-info">
-                    <h3>Usuario 1</h3>
+                    <h3 id="chat-username"></h3>
                 </div>
             </div>
 
