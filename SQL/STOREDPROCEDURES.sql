@@ -360,3 +360,29 @@ BEGIN
     ORDER BY P.fecha_publicacion DESC;
 END$$
 DELIMITER ;
+-- mensajes 
+DELIMITER $$
+CREATE PROCEDURE insertar_mensajes(
+    IN hash_emisor_ VARCHAR(255),
+    IN hash_receptor_ VARCHAR(255),
+    IN texto_ TEXT
+)
+BEGIN
+    INSERT INTO mensajes (hash_emisor, hash_receptor, texto, fecha_envio) 
+    VALUES (hash_emisor_, hash_receptor_, texto_, NOW());
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE obtener_mensajes(
+    IN hash_emisor_ VARCHAR(255),
+    IN hash_receptor_ VARCHAR(255)
+)
+BEGIN
+    SELECT id_mensajes, hash_emisor, hash_receptor, texto, fecha_envio 
+    FROM mensajes 
+    WHERE (hash_emisor = hash_emisor_ AND hash_receptor = hash_receptor_)
+       OR (hash_emisor = hash_receptor_ AND hash_receptor = hash_emisor_)
+    ORDER BY fecha_envio ASC;
+END$$
+DELIMITER ;
