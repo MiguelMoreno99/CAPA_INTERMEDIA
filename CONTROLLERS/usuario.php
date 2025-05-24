@@ -32,22 +32,6 @@ class Usuario
     ]);
   }
 
-  public function cargarVistaNuevaPublicacion()
-  {
-    Middleware::resolve('auth'); // Solo no usuarios logueados podrán ver esta vista
-    return view('/nueva_publicacion.php', [
-      'heading' => "Nueva publicación",
-    ]);
-  }
-
-  public function cargarVistaMisPublicaciones()
-  {
-    Middleware::resolve('auth'); // Solo no usuarios logueados podrán ver esta vista
-    return view('/mis_publicaciones.php', [
-      'heading' => "Mis Publicaciones",
-    ]);
-  }
-
   public function cargarVistaMensajes()
   {
     Middleware::resolve('auth'); // Solo no usuarios logueados podrán ver esta vista

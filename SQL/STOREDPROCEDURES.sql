@@ -82,14 +82,6 @@ BEGIN
 END$$
 DELIMITER ;
 
--- insert INTO capa_intermedia.contactos VALUES ("2f4acf8f31f887a483c9dd33ab6051d334cfdbb98816333dee1e3a1201ea9d27","c27002e38eb28ea4464f7a09dbbcae616d427bddab221431fb72407caae1be2b");
-
--- CALL obtener_contactos_agregados("2f4acf8f31f887a483c9dd33ab6051d334cfdbb98816333dee1e3a1201ea9d27");
--- CALL obtener_contactos_agregados("c27002e38eb28ea4464f7a09dbbcae616d427bddab221431fb72407caae1be2b");
-
--- CALL obtener_usuarios_disponibles("2f4acf8f31f887a483c9dd33ab6051d334cfdbb98816333dee1e3a1201ea9d27");
--- CALL obtener_usuarios_disponibles("c27002e38eb28ea4464f7a09dbbcae616d427bddab221431fb72407caae1be2b");
-
 DELIMITER $$
 CREATE PROCEDURE `agregar_contacto`(
     IN p_hash_usuario VARCHAR(255),
@@ -137,22 +129,6 @@ END$$
 DELIMITER ;
 
 DELIMITER $$
-CREATE PROCEDURE `obtenerMediaPorPublicacion`(IN pub_id TINYINT)
-BEGIN
-    SELECT 
-        tipo,
-        CONCAT('data:', 
-               CASE tipo
-                   WHEN 'imagen' THEN 'image/jpeg'
-                   WHEN 'video' THEN 'video/mp4'
-               END,
-               ';base64,', TO_BASE64(contenido)) AS url
-    FROM Contenido_Media
-    WHERE publicacion_id = pub_id;
-END$$
-DELIMITER ;
-
-DELIMITER $$
 CREATE PROCEDURE `obtenerComentariosPorPublicacion`(IN pub_id TINYINT)
 BEGIN
     SELECT 
@@ -166,54 +142,6 @@ BEGIN
     ORDER BY C.fecha_comentario ASC;
 END$$
 DELIMITER ;
-
--- INSERT INTO Tema (nombre_tema) VALUES ('Viajes');
--- INSERT INTO Tema (nombre_tema) VALUES ('Deportes');
--- INSERT INTO Tema (nombre_tema) VALUES ('Tecnología');
--- INSERT INTO Tema (nombre_tema) VALUES ('Cultura');
-
--- INSERT INTO Publicaciones (titulo, tema_id, descripcion, hash_correo,numero_likes)
--- VALUES ('Mi nuevo viaje a la playa', 1, 'Les comparto fotos de mi último viaje', '2f4acf8f31f887a483c9dd33ab6051d334cfdbb98816333dee1e3a1201ea9d27',10);
--- INSERT INTO Contenido_Media (publicacion_id, tipo, contenido)
--- VALUES (1,'imagen',LOAD_FILE('D:/XAMPP/htdocs/CAPA_INTERMEDIA/IMG/SocializeLogo.jpg'));
--- INSERT INTO Contenido_Media (publicacion_id, tipo, contenido)
--- VALUES (1,'imagen',LOAD_FILE('D:/XAMPP/htdocs/CAPA_INTERMEDIA/IMG/SocializeLogo2.jpg'));
--- INSERT INTO Contenido_Media (publicacion_id, tipo, contenido)
--- VALUES (1,'imagen',LOAD_FILE('D:/XAMPP/htdocs/CAPA_INTERMEDIA/IMG/SocializeLogo.jpg'));
--- INSERT INTO Contenido_Media (publicacion_id, tipo, contenido)
--- VALUES (1,'video',LOAD_FILE('D:/XAMPP/htdocs/CAPA_INTERMEDIA/IMG/video.mp4'));
--- INSERT INTO Comentario_Publicaciones (publicacion_id, comentario_texto, hash_correo)
--- VALUES (1, '¡Qué padre viaje! Espero poder ir pronto.', '2f4acf8f31f887a483c9dd33ab6051d334cfdbb98816333dee1e3a1201ea9d27');
-
--- INSERT INTO Publicaciones (titulo, tema_id, descripcion, hash_correo,numero_likes)
--- VALUES ('Mi nuevo deporte Favorito', 2, 'Les comparto fotos de deporte', 'ec6178702dca2b7e6a29b2ce120124b822ff0cd3310b8c6003500e23dccf9420',2);
--- INSERT INTO Contenido_Media (publicacion_id, tipo, contenido)
--- VALUES (2,'imagen',LOAD_FILE('D:/XAMPP/htdocs/CAPA_INTERMEDIA/IMG/SocializeLogo2.jpg'));
--- INSERT INTO Contenido_Media (publicacion_id, tipo, contenido)
--- VALUES (2,'imagen',LOAD_FILE('D:/XAMPP/htdocs/CAPA_INTERMEDIA/IMG/SocializeLogo.jpg'));
--- INSERT INTO Comentario_Publicaciones (publicacion_id, comentario_texto, hash_correo)
--- VALUES (2, '¡Qué padre deporte!.', 'c27002e38eb28ea4464f7a09dbbcae616d427bddab221431fb72407caae1be2b');
--- INSERT INTO Comentario_Publicaciones (publicacion_id, comentario_texto, hash_correo)
--- VALUES (2, '¡Qué padre viaje! Espero poder ir pronto.', '2f4acf8f31f887a483c9dd33ab6051d334cfdbb98816333dee1e3a1201ea9d27');
-
--- INSERT INTO Publicaciones (titulo, tema_id, descripcion, hash_correo,numero_likes)
--- VALUES ('Otro viaje a la playa', 1, 'Les comparto fotos de mi otro viaje', '2f4acf8f31f887a483c9dd33ab6051d334cfdbb98816333dee1e3a1201ea9d27',3);
--- INSERT INTO Contenido_Media (publicacion_id, tipo, contenido)
--- VALUES (3,'imagen',LOAD_FILE('D:/XAMPP/htdocs/CAPA_INTERMEDIA/IMG/SocializeLogo2.jpg'));
--- INSERT INTO Contenido_Media (publicacion_id, tipo, contenido)
--- VALUES (3,'imagen',LOAD_FILE('D:/XAMPP/htdocs/CAPA_INTERMEDIA/IMG/SocializeLogo.jpg'));
--- INSERT INTO Contenido_Media (publicacion_id, tipo, contenido)
--- VALUES (3,'imagen',LOAD_FILE('D:/XAMPP/htdocs/CAPA_INTERMEDIA/IMG/SocializeLogo2.jpg'));
--- INSERT INTO Contenido_Media (publicacion_id, tipo, contenido)
--- VALUES (3,'video',LOAD_FILE('D:/XAMPP/htdocs/CAPA_INTERMEDIA/IMG/video.mp4'));
--- INSERT INTO Comentario_Publicaciones (publicacion_id, comentario_texto, hash_correo)
--- VALUES (3, '¡Qué padre viaje!', 'ec6178702dca2b7e6a29b2ce120124b822ff0cd3310b8c6003500e23dccf9420');
--- INSERT INTO Comentario_Publicaciones (publicacion_id, comentario_texto, hash_correo)
--- VALUES (3, '¡Espero poder ir pronto.', 'c27002e38eb28ea4464f7a09dbbcae616d427bddab221431fb72407caae1be2b');
--- INSERT INTO Comentario_Publicaciones (publicacion_id, comentario_texto, hash_correo)
--- VALUES (3, '¡AAAAAAAAA.', 'ec6178702dca2b7e6a29b2ce120124b822ff0cd3310b8c6003500e23dccf9420');
-
--- SHOW VARIABLES LIKE 'max_allowed_packet';
 
 DELIMITER $$
 CREATE PROCEDURE `toggleFavorito` (
@@ -360,6 +288,7 @@ BEGIN
     ORDER BY P.fecha_publicacion DESC;
 END$$
 DELIMITER ;
+
 -- mensajes 
 DELIMITER $$
 CREATE PROCEDURE insertar_mensajes(
@@ -374,6 +303,38 @@ END$$
 DELIMITER ;
 
 DELIMITER $$
+CREATE PROCEDURE `insertarPublicacion` (
+    IN p_titulo VARCHAR(255),
+    IN p_tema_id TINYINT,
+    IN p_descripcion TEXT,
+    IN p_hash_correo VARCHAR(255)
+)
+BEGIN
+    INSERT INTO Publicaciones (titulo, tema_id, descripcion, hash_correo)
+    VALUES (p_titulo, p_tema_id, p_descripcion, p_hash_correo);
+    
+    -- Devolver el ID generado
+    SELECT LAST_INSERT_ID() AS id_publicacion;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE `insertarContenidoMedia` (
+    IN p_publicacion_id TINYINT,
+    IN p_tipo VARCHAR(10),
+    IN p_ruta_archivo TEXT
+)
+BEGIN
+    INSERT INTO Contenido_Media (publicacion_id, tipo, url_media)
+    VALUES (
+        p_publicacion_id,
+        p_tipo,
+        p_ruta_archivo
+    );
+END$$
+DELIMITER ;
+
+DELIMITER $$
 CREATE PROCEDURE obtener_mensajes(
     IN hash_emisor_ VARCHAR(255),
     IN hash_receptor_ VARCHAR(255)
@@ -384,5 +345,30 @@ BEGIN
     WHERE (hash_emisor = hash_emisor_ AND hash_receptor = hash_receptor_)
        OR (hash_emisor = hash_receptor_ AND hash_receptor = hash_emisor_)
     ORDER BY fecha_envio ASC;
+END$$
+DELIMITER ;
+
+CREATE PROCEDURE `obtenerMediaPorPublicacion`(IN pub_id TINYINT)
+BEGIN
+    SELECT 
+        tipo,
+        url_media AS url
+    FROM Contenido_Media
+    WHERE publicacion_id = pub_id;
+END$$
+DELIMITER ;
+
+-- EDITAR PUBLICACION
+DELIMITER $$
+CREATE PROCEDURE `editar_publicacion`(
+IN titulo_ VARCHAR(255),
+IN descripcion_ TEXT, 
+IN id_publicaciones_ TINYINT
+)
+BEGIN
+   UPDATE publicaciones SET
+        titulo = CASE WHEN titulo_ IS NOT NULL AND titulo_ != '' THEN titulo_ ELSE titulo END,
+        descripcion = CASE WHEN descripcion_ IS NOT NULL AND descripcion_ != '' THEN descripcion_ ELSE descripcion END
+		WHERE id_publicaciones = id_publicaciones_;
 END$$
 DELIMITER ;

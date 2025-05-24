@@ -1,13 +1,3 @@
-<?php
-//session_start();
-$usuario = $_SESSION['usuario'] ?? null;
-
-if (!$usuario) {
-    // Redirect to login or show error if no session
-    header("Location: /login");
-    exit;
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,7 +18,7 @@ if (!$usuario) {
             <div class="Perfil-Container" id="Perfil-Container">
                 <!-- Foto y Correo del perfil -->
                 <div class="Foto-Container" id="Foto-Container">
-                    <h1 id="correoUsuario"><?= htmlspecialchars($usuario['correo']) ?></h1>
+                    <h1 id="correoUsuario"><?= htmlspecialchars($_SESSION['usuario']['correo']) ?></h1>
                 </div>
                 <!-- Cambio de contraseña -->
                 <form id="actualizar_usuarioForm" method="POST" action="/usuario" enctype="multipart/form-data">

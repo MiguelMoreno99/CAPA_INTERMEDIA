@@ -104,6 +104,12 @@ async function obtenerPublicaciones() {
               👍 Me gusta <span>${pub.numero_likes}</span>
             </button>
             <button class="btn enviar-comentario" data-id="${pub.id_publicaciones}">💬 Comentar</button>
+            <button class="btn editar-btn" data-id="${pub.id_publicaciones}" 
+              data-titulo="${pub.titulo}" 
+              data-descripcion="${pub.descripcion}" 
+              data-tema="${pub.tema}">
+              ✏️ Editar publicación
+            </button>
           </div>
 
           <div class="comments-section">
@@ -295,4 +301,142 @@ document.addEventListener("click", async function (e) {
 
 document.querySelector('.filter').addEventListener('click', async (e) => {
   await obtenerPublicacionesFiltradas();
+});
+
+// Modal elements
+const modal = document.getElementById("edit-modal");
+const closeBtn = modal.querySelector(".close");
+const guardarBtn = modal.querySelector(".guardar-cambios");
+
+let editPostId = null;
+
+// Function to show modal
+function showModal() {
+  modal.classList.remove("hidden");
+  document.body.style.overflow = 'hidden'; // Prevent background scrolling
+}
+
+// Function to hide modal
+function hideModal() {
+  modal.classList.add("hidden");
+  document.body.style.overflow = 'auto'; // Restore scrolling
+  editPostId = null;
+}
+
+// Event listener for edit buttons (using event delegation)
+document.addEventListener("click", (e) => {
+  // Handle edit button click
+  if (e.target.classList.contains("editar-btn")) {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    editPostId = e.target.dataset.id;
+    console.log(editPostId)
+    
+    // Populate modal fields with current values
+    document.getElementById("edit-titulo").value = e.target.dataset.titulo || '';
+    document.getElementById("edit-descripcion").value = e.target.dataset.descripcion || '';
+    //document.getElementById("edit-tema").value = e.target.dataset.tema || '';
+    
+    showModal();
+  }
+});
+
+// Close modal when clicking the X button
+closeBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  hideModal();
+});
+
+// Close modal when clicking outside the modal content
+modal.addEventListener("click", (e) => {
+  if (e.target === modal) {
+    hideModal();
+  }
+});
+
+// Close modal with Escape key
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && !modal.classList.contains("hidden")) {
+    hideModal();
+  }
+});
+
+// Handle save changes button
+guardarBtn.addEventListener("click", async (e) => {
+  e.preventDefault();
+  
+  if (!editPostId) {
+    alert("Error: No se ha seleccionado ninguna publicación para editar.");
+    return;
+  }
+
+  const nuevoTitulo = document.getElementById("edit-titulo").value.trim();
+  const nuevaDescripcion = document.getElementById("edit-descripcion").value.trim();
+  //const nuevoTema = document.getElementById("edit-tema").value;
+
+  // Validation
+  
+  /* if (!nuevaDescripcion) {
+    alert("La descripción no puede estar vacía.");
+    return;
+  }
+  
+  if (!nuevoTema) {
+    alert("Debe seleccionar un tema.");
+    return;
+  } */
+
+  try {
+    // Show loading state
+    guardarBtn.disabled = true;
+    guardarBtn.textContent = "Guardando...";
+    //console.log(nuevoTitulo);
+    //console.log(nuevaDescripcion);
+    const formData = new FormData();
+  formData.append('id_publicacion', editPostId);
+  formData.append('titulo', nuevoTitulo);
+  formData.append('descripcion', nuevaDescripcion);
+
+  const res = await fetch("/api/editar_publicacion", {
+    method: "POST",
+    body: formData // Don't set Content-Type header
+  });
+   if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`);
+    }
+
+    // Try to parse JSON response
+    let data;
+    try {
+      data = await res.json();
+    } catch (jsonError) {
+      console.error("Response is not valid JSON:", await res.text());
+      throw new Error("El servidor no devolvió una respuesta válida");
+    }
+    
+    if (data.exito) {
+      hideModal();
+      await obtenerPublicaciones(); // Refresh posts
+      alert("Publicación editada exitosamente.");
+    } else {
+      alert("No se pudo editar la publicación: " + (data.mensaje || "Error desconocido"));
+    }
+    
+  } catch (error) {
+    console.error("Error al editar publicación:", error);
+    
+    // Show user-friendly error message
+    if (error.message.includes("HTTP error")) {
+      alert("Error del servidor. Por favor intente nuevamente.");
+    } else if (error.message.includes("JSON")) {
+      alert("Error de comunicación con el servidor.");
+    } else {
+      alert("Error de conexión. Intente nuevamente.");
+    }
+  } finally {
+    // Restore button state
+    guardarBtn.disabled = false;
+    guardarBtn.textContent = "Guardar cambios";
+  }
 });
