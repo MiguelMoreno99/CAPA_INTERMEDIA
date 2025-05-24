@@ -154,7 +154,7 @@ async function obtenerPublicacionesFiltradas() {
     console.log(publicacionesDisponibles);
 
     const container = document.getElementById('feed-container');
-    container.innerHTML = ''; // Limpia el contenedor
+    container.innerHTML = '';
     publicacionesDisponibles.forEach((pub, index) => {
       const multimediaHTML = pub.multimedia.map(media => {
         if (media.tipo === 'imagen') {
@@ -221,7 +221,7 @@ async function obtenerPublicacionesFiltradas() {
       container.insertAdjacentHTML('beforeend', postHTML);
     });
 
-    inicializarCarruseles(); // Aquí ya existen los .post
+    inicializarCarruseles();
   } catch (error) {
     console.error(error);
   }
@@ -244,10 +244,8 @@ document.addEventListener('click', async (e) => {
       if (!response.ok) throw new Error("Error al marcar favorito");
       const data = await response.json();
 
-      // Alternar la clase visual
       btn.classList.toggle('liked');
 
-      // Actualizar contador de likes
       const span = btn.querySelector('span');
       span.textContent = data.numero_likes;
 
@@ -329,15 +327,15 @@ document.addEventListener("click", (e) => {
   if (e.target.classList.contains("editar-btn")) {
     e.preventDefault();
     e.stopPropagation();
-    
+
     editPostId = e.target.dataset.id;
     console.log(editPostId)
-    
+
     // Populate modal fields with current values
     document.getElementById("edit-titulo").value = e.target.dataset.titulo || '';
     document.getElementById("edit-descripcion").value = e.target.dataset.descripcion || '';
     //document.getElementById("edit-tema").value = e.target.dataset.tema || '';
-    
+
     showModal();
   }
 });
@@ -365,7 +363,7 @@ document.addEventListener("keydown", (e) => {
 // Handle save changes button
 guardarBtn.addEventListener("click", async (e) => {
   e.preventDefault();
-  
+
   if (!editPostId) {
     alert("Error: No se ha seleccionado ninguna publicación para editar.");
     return;
@@ -376,7 +374,7 @@ guardarBtn.addEventListener("click", async (e) => {
   //const nuevoTema = document.getElementById("edit-tema").value;
 
   // Validation
-  
+
   /* if (!nuevaDescripcion) {
     alert("La descripción no puede estar vacía.");
     return;
@@ -394,15 +392,15 @@ guardarBtn.addEventListener("click", async (e) => {
     //console.log(nuevoTitulo);
     //console.log(nuevaDescripcion);
     const formData = new FormData();
-  formData.append('id_publicacion', editPostId);
-  formData.append('titulo', nuevoTitulo);
-  formData.append('descripcion', nuevaDescripcion);
+    formData.append('id_publicacion', editPostId);
+    formData.append('titulo', nuevoTitulo);
+    formData.append('descripcion', nuevaDescripcion);
 
-  const res = await fetch("/api/editar_publicacion", {
-    method: "POST",
-    body: formData // Don't set Content-Type header
-  });
-   if (!res.ok) {
+    const res = await fetch("/api/editar_publicacion", {
+      method: "POST",
+      body: formData // Don't set Content-Type header
+    });
+    if (!res.ok) {
       throw new Error(`HTTP error! status: ${res.status}`);
     }
 
@@ -414,7 +412,7 @@ guardarBtn.addEventListener("click", async (e) => {
       console.error("Response is not valid JSON:", await res.text());
       throw new Error("El servidor no devolvió una respuesta válida");
     }
-    
+
     if (data.exito) {
       hideModal();
       await obtenerPublicaciones(); // Refresh posts
@@ -422,10 +420,10 @@ guardarBtn.addEventListener("click", async (e) => {
     } else {
       alert("No se pudo editar la publicación: " + (data.mensaje || "Error desconocido"));
     }
-    
+
   } catch (error) {
     console.error("Error al editar publicación:", error);
-    
+
     // Show user-friendly error message
     if (error.message.includes("HTTP error")) {
       alert("Error del servidor. Por favor intente nuevamente.");

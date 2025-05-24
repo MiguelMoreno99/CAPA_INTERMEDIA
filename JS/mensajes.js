@@ -1,4 +1,3 @@
-// Script temporal para el boton de cifrado
 const chatList = document.getElementById("chat-list");
 let socket;
 let selectedReceptor = null;
@@ -10,8 +9,8 @@ const chatMessages = document.querySelector(".chat-messages");
 let contactosAgregados = [];
 
 document.addEventListener("DOMContentLoaded", () => {
-  // 1. Connect to WebSocket
-   obtenerContactosAgregados();
+
+  obtenerContactosAgregados();
   socket = new WebSocket("ws://localhost:8080");
 
   socket.onmessage = (event) => {
@@ -42,19 +41,18 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// 2. Set selected receptor
+
 function selectReceptor(hash_correo, correo) {
   if (selectedReceptor === correo) return;
   selectedReceptor = hash_correo;
   const chatUsername = document.getElementById("chat-username");
   chatUsername.textContent = correo;
-   
+
   chatMessages.innerHTML = "";
-  fetchMessagesForChat(emisor, hash_correo); 
-  
+  fetchMessagesForChat(emisor, hash_correo);
+
 }
 
-// 3. Add message to UI
 function appendMessage(text, type) {
   const div = document.createElement("div");
   div.className = `message ${type}`;
@@ -76,17 +74,17 @@ async function obtenerContactosAgregados() {
 }
 
 async function fetchMessagesForChat(emisor, receptor) {
- try{
+  try {
     const response = await fetch(`/api/cargar_mensajes?emisor=${emisor}&receptor=${receptor}`);
     const history = await response.json();
     console.log(history);
     history.forEach(msg => {
-    appendMessage(msg.texto, msg.emisor === emisor ? 'sent' : 'received');
-  });
- }catch(error){
+      appendMessage(msg.texto, msg.emisor === emisor ? 'sent' : 'received');
+    });
+  } catch (error) {
     console.error("Fetch error:", error);
- }
- 
+  }
+
 }
 
 function renderizarContactos() {
@@ -107,9 +105,9 @@ function renderizarContactos() {
 
     const notification = document.createElement("label");
     notification.className = "messageNotification";
-    
+
     li.addEventListener("click", () => {
-    selectReceptor(contacto.hash_correo, contacto.correo);
+      selectReceptor(contacto.hash_correo, contacto.correo);
     });
 
     li.appendChild(notification);
