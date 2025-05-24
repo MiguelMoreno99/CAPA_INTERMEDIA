@@ -331,3 +331,20 @@ BEGIN
     WHERE publicacion_id = pub_id;
 END$$
 DELIMITER ;
+-- EDITAR PUBLICACION
+DELIMITER $$
+CREATE PROCEDURE `editar_publicacion`(
+IN titulo_ VARCHAR(255),
+IN tema_id_ TINYINT,
+IN descripcion_ TEXT, 
+IN id_publicaciones_ TINYINT
+)
+BEGIN
+   UPDATE publicaciones SET
+        titulo = CASE WHEN titulo_ IS NOT NULL AND titulo_ != '' THEN tituloe_ ELSE titulo END,
+        tema_id = CASE WHEN tema_id_ IS NOT NULL AND titulo_ != '' THEN tema_id_ ELSE tema_id END,
+        descripcion = CASE WHEN descripcion_ IS NOT NULL AND descripcion_ != '' THEN descripcion_ ELSE descripcion END
+		WHERE id_publicaciones = id_publicaciones_;
+END$$
+DELIMITER ;
+

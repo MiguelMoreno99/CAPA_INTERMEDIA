@@ -38,6 +38,7 @@ $router->post('/api/toggle_favorito', [Publicacion::class, 'toggleFavorito']);
 $router->post('/api/crear_comentario', [Publicacion::class, 'comentarPublicacion']);
 $router->post('/api/publicaciones_filtradas', [Publicacion::class, 'devolverPublicacionesFiltradas']);
 $router->post('/api/publicaciones_filtradasFeed', [Publicacion::class, 'devolverPublicacionesFiltradasFeed']);
+$router->post('/api/editar_publicacion', [Publicacion::class, 'editarPublicaciones']);
 
 //Reporte
 use CONTROLLERS\Reporte;
