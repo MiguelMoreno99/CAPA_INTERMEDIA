@@ -314,4 +314,19 @@ class Publication extends Model
       echo "Error al cargar contenido media: " . $e->getMessage();
     }
   }
+
+  public function updatePost($titulo_, $descripcion_, $id_publicacion_){
+    $query ="CALL editar_publicacion(:titulo_, :descripcion_, :id_publicacion_)";
+     $params = [
+      'titulo_' => $titulo_,
+      'descripcion_' => $descripcion_,
+      'id_publicacion_' => $id_publicacion_
+    ];
+    try {
+      $this->db->query($query, $params);
+    } catch (\Exception $e) {
+      echo "Error al cargar contenido media: " . $e->getMessage();
+    }
+
+  }
 }

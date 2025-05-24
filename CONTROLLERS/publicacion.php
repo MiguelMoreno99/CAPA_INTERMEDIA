@@ -156,4 +156,27 @@ class Publicacion
       $this->cargarVistaMisPublicaciones();
     }
   }
+
+  public function editarPublicaciones(){
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+      $id_publicacion_ = intval($_POST['id_publicacion'] ?? '');
+      $titulo_ = $_POST['titulo'] ?? '';
+      $descripcion_ = $_POST['descripcion'] ?? '';
+   /*     echo "<pre>";
+    print_r([
+        'id_publicacion' => $id_publicacion_,
+        'titulo' => $titulo_,
+        'descripcion' => $descripcion_
+    ]);
+    echo "</pre>"; */
+       try {
+        $this->res = $this->publicacion->updatePost($titulo_, $descripcion_, $id_publicacion_);
+        echo json_encode(['exito' => true]);
+      } catch (\Exception $e) {
+        echo json_encode(['exito' => false, 'mensaje' => 'Error al editar publicacion']);
+      }
+      
+    }
+  }
 }
